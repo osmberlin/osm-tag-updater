@@ -1,10 +1,8 @@
+/// <reference types="vitest" />
+
 import { defineConfig } from 'vite'
-import svgr from 'vite-plugin-svgr'
-import react from '@vitejs/plugin-react'
 import path from 'path'
 
-// https://vitejs.dev/config/
-/** @type {import('vite').UserConfig} */
 export default defineConfig({
   resolve: {
     alias: {
@@ -14,9 +12,10 @@ export default defineConfig({
       '@assets': path.resolve(__dirname, './src/assets/'),
     },
   },
-  // https://github.com/pd4d10/vite-plugin-svgr
-  plugins: [react(), svgr()],
-  build: {
-    sourcemap: true,
+  test: {
+    // https://vitest.dev/config/#globals
+    // globals: true,
+    // https://vitest.dev/config/#environment
+    // environment: 'happy-dom',
   },
 })

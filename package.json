@@ -7,8 +7,13 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "type-check": "tsc",
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "test": "vitest watch",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest run --coverage",
+    "check": "npm run type-check && npm run lint && npm run format && vitest run"
   },
   "dependencies": {
     "eslint-plugin-jsx-a11y": "^6.6.1",
@@ -20,6 +25,7 @@
     "@types/react-dom": "^18.0.7",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@vitejs/plugin-react": "^2.2.0",
+    "@vitest/ui": "^0.24.5",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.27.0",
     "eslint-config-prettier": "^8.5.0",
@@ -37,6 +43,8 @@
     "prettier-plugin-tailwindcss": "^0.1.13",
     "tailwindcss": "^3.2.2",
     "typescript": "^4.8.4",
-    "vite": "^3.2.0"
+    "vite": "^3.2.0",
+    "vite-plugin-svgr": "^2.2.2",
+    "vitest": "^0.24.5"
   }
 }
