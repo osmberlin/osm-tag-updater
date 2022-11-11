@@ -13,7 +13,8 @@
     "test": "vitest watch",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
-    "check": "npm run type-check && npm run lint && npm run format && vitest run"
+    "check": "npm run type-check && npm run lint && npm run format && vitest run",
+    "deploy": "chmod +x ./deploy.sh && ./deploy.sh"
   },
   "dependencies": {
     "eslint-plugin-jsx-a11y": "^6.6.1",

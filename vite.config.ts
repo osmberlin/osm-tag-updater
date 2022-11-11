@@ -19,4 +19,5 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  base: 'https://osmberlin.github.io/osm-tag-updater/',
 })
