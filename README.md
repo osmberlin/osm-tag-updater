@@ -18,6 +18,10 @@ This is a plain Typescript React App using Vite.
 - Tailwind CSS, Tailwind UI, Headless UI and Heroicon for styling
 - Prettier, ESLint, Editorconfig for code formatting
 
+# OSM Schema
+
+Old vs. new schema docs https://wiki.openstreetmap.org/wiki/Proposed_features/street_parking_revision#Dictionary:_old_vs._new_tags
+
 # MVPs
 
 ## MVP 1
