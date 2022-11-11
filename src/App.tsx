@@ -1,33 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useEffect, useState } from 'react'
 import './index.css'
 
+type TagArray = string[]
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [newTags, setNewTags] = useState<TagArray>([])
+  const [ignoredTags, setIgnoredTags] = useState<TagArray>([])
+  const [notRecognizedTags, setNotRecognizedTags] = useState<TagArray>([])
+
+  const transpose: { [name: string]: string } = {
+    'parking:lane:left': 'parking:left:orientation',
+    'parking:lane:right': 'parking:right:orientation',
+    'parking:lane:both': 'parking:both:orientation',
+  }
+
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputTagArray = event.target.value.split('\n').filter(Boolean)
+    const ignoredTagArray = inputTagArray.filter(
+      (t) => !t.startsWith('parking:')
+    )
+    setIgnoredTags(ignoredTagArray)
+    const candidateTagsArray = inputTagArray.filter((t) =>
+      t.startsWith('parking:')
+    )
+
+    const notRecognizedTagsArray: TagArray = []
+    const newTagsArray: TagArray = []
+    candidateTagsArray.forEach((tag) => {
+      const [oldKey, oldVal] = tag.split('=')
+      const newTag = transpose[oldKey || '']
+      if (!newTag) {
+        notRecognizedTagsArray.push(tag)
+      } else {
+        newTagsArray.push(`${newTag}=${oldVal}`)
+      }
+    })
+    setNotRecognizedTags(notRecognizedTagsArray)
+    setNewTags(newTagsArray)
+  }
 
   return (
-    <div className="mx-auto max-w-xl">
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="p-10">
+      <h1 className="text-xl font-thin">OSM Parking Lane Tag Updater</h1>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <h2 className="font-bold">Old tags</h2>
+          <textarea
+            className="h-52 w-full resize rounded border bg-gray-50 font-mono"
+            onChange={handleChange}
+            defaultValue="parking:lane"
+          />
+          <h3 className="font-semibold">Recognized tags:</h3>
+          <ul>
+            {ignoredTags.map((tag) => {
+              return <li key={tag}>{tag}</li>
+            })}
+          </ul>
+        </div>
+        <div>
+          <h2 className="font-bold">New tags</h2>
+          <textarea
+            className="h-52 w-full resize rounded border bg-gray-50 font-mono"
+            readOnly
+            value={newTags.join('\n')}
+          />
+          <h3 className="font-semibold">Tags that we could not transpose:</h3>
+          <ul>
+            {notRecognizedTags.map((tag) => {
+              return <li key={tag}>{tag}</li>
+            })}
+          </ul>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
