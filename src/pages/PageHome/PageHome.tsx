@@ -1,6 +1,24 @@
+import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 
 export const PageHome: React.FC = () => {
+  const osm_id = 858659630
+  const { isInitialLoading, isError, data, error, refetch, isFetching } =
+    useQuery({
+      queryKey: ['osm/way', osm_id],
+      // https://wiki.openstreetmap.org/wiki/API_v0.6#Read:_GET_/api/0.6/[node|way|relation]/#id
+      // https://tanstack.com/query/v4/docs/guides/query-functions#usage-with-fetch-and-other-clients-that-do-not-throw-by-default
+      queryFn: async () => {
+        const response = await fetch(
+          `https://www.openstreetmap.org/api/0.6/way/${osm_id}.json`
+        )
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        return response.json()
+      },
+    })
+
   type TagArray = string[]
 
   const [newTags, setNewTags] = useState<TagArray>([])
@@ -38,6 +56,25 @@ export const PageHome: React.FC = () => {
     setNewTags(newTagsArray)
   }
 
+  if (!data) {
+    if (isError) {
+      // @ts-ignore need to check this in the library or github issues
+      return <span>Error: {error.message}</span>
+    }
+    if (isInitialLoading) {
+      return <span>Loading…</span>
+    }
+    return <span>Not ready …</span>
+  }
+  if (isFetching) {
+    return <span>Fetching…</span>
+  }
+
+  const inputTags = data?.elements?.[0]?.tags
+  const inputTagsString =
+    inputTags &&
+    Object.entries(inputTags).map(([key, value]) => `${key}=${value}`)
+
   return (
     <div className="p-10">
       <h1 className="text-xl font-thin">OSM Parking Lane Tag Updater</h1>
@@ -47,7 +84,7 @@ export const PageHome: React.FC = () => {
           <textarea
             className="h-52 w-full resize rounded border bg-gray-50 font-mono"
             onChange={handleChange}
-            defaultValue="parking:lane"
+            defaultValue={inputTagsString.join('\n')}
           />
           <h3 className="font-semibold">Recognized tags:</h3>
           <ul>
@@ -55,6 +92,12 @@ export const PageHome: React.FC = () => {
               return <li key={tag}>{tag}</li>
             })}
           </ul>
+          <button
+            onClick={() => refetch()}
+            className="rounded-sm border p-0.5 hover:bg-blue-50"
+          >
+            Reload data
+          </button>
         </div>
         <div>
           <h2 className="font-bold">New tags</h2>
