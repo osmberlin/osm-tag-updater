@@ -68,7 +68,7 @@ export const PageHome: React.FC = () => {
             onClick={() => refetch()}
             className="rounded-sm border p-0.5 hover:bg-blue-50"
           >
-            Reload data
+            Reload data for way/{osm_id}
           </button>
         </div>
         <div>
