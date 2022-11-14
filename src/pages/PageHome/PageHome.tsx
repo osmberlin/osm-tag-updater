@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { TagsStringArray, transpose, TransposeTagObject } from './transpose'
+import { TagsStringArray, transpose, TransposeTagsObject } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
 import { tagsObjectToStringArray } from './utils'
 
@@ -11,9 +11,9 @@ export const PageHome: React.FC = () => {
   const inputTags = data?.elements?.[0]?.tags
   const inputTagsString = tagsObjectToStringArray(inputTags)
 
-  const [newTags, setNewTags] = useState<TransposeTagObject[]>([])
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
   const [unrecognizedTags, setUnrecognizedTags] = useState<TagsStringArray>([])
+  const [newTags, setNewTags] = useState<TransposeTagsObject>({})
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tags = event.target.value.split('\n').filter(Boolean)
@@ -49,43 +49,92 @@ export const PageHome: React.FC = () => {
 
   return (
     <div className="p-10">
-      <h1 className="text-xl font-thin">OSM Parking Lane Tag Updater</h1>
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <h2 className="font-bold">Old tags</h2>
-          <textarea
-            className="h-52 w-full resize rounded border bg-gray-50 font-mono"
-            onChange={handleChange}
-            defaultValue={inputTagsString?.join('\n')}
-          />
-          <h3 className="font-semibold">Recognized tags:</h3>
-          <ul>
-            {ignoredTags.map((tag) => {
-              return <li key={tag}>{tag}</li>
-            })}
-          </ul>
-          <button
-            onClick={() => refetch()}
-            className="rounded-sm border p-0.5 hover:bg-blue-50"
-          >
-            Reload data for way/{osm_id}
-          </button>
+      <h1 className="mb-5 text-3xl font-thin">OSM Parking Lane Tag Updater</h1>
+      <section>
+        <div className="mt-5 grid grid-cols-2 gap-4">
+          <div>
+            <div className="mb-2 flex justify-between">
+              <h2 className="font-bold">Input</h2>
+              <fieldset>
+                <button
+                  onClick={() => refetch()}
+                  className="rounded-sm border p-0.5 text-xs hover:bg-blue-50"
+                >
+                  Reload data for way/{osm_id}
+                </button>
+              </fieldset>
+            </div>
+            <textarea
+              className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
+              onChange={handleChange}
+              defaultValue={inputTagsString?.join('\n')}
+            />
+          </div>
+          <div>
+            <h2 className="mb-2 font-bold">Output</h2>
+            <textarea
+              className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
+              defaultValue={'todo'}
+            />
+          </div>
         </div>
-        <div>
-          <h2 className="font-bold">New tags</h2>
-          <textarea
-            className="h-52 w-full resize rounded border bg-gray-50 font-mono"
-            readOnly
-            value={newTags.map((t) => JSON.stringify(t)).join('\n')}
-          />
-          <h3 className="font-semibold">Tags that we could not transpose:</h3>
-          <ul>
-            {unrecognizedTags.map((tag) => {
-              return <li key={tag}>{tag}</li>
+      </section>
+
+      <section className="mt-5">
+        <h2 className="mb-2 font-bold">New Tags</h2>
+        <table className="w-full">
+          <thead className="border-b-4">
+            <tr>
+              <th className="text-left font-semibold">Old Tags:</th>
+              <th className="text-left font-semibold">New Tags:</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(newTags).map(([oldTag, newTagObject]) => {
+              return (
+                <tr key={oldTag} className="border-b hover:bg-purple-50">
+                  <th className="w-1/3 py-1 text-left align-top font-semibold">
+                    {oldTag}
+                  </th>
+                  <td className="space-y-1 py-1 align-top">
+                    {newTagObject.newTags.map((newTag) => {
+                      return (
+                        <input
+                          key={newTag}
+                          type="text"
+                          defaultValue={newTag}
+                          className="block w-full rounded-sm border bg-yellow-50 px-1 py-0.5"
+                        />
+                      )
+                    })}
+                    <div className="text-xs text-gray-300 hover:text-gray-600">
+                      {JSON.stringify(newTagObject)}
+                    </div>
+                  </td>
+                </tr>
+              )
             })}
-          </ul>
+          </tbody>
+        </table>
+        <div className="mt-5 grid grid-cols-2 gap-4">
+          <div>
+            <h3 className="font-semibold">Tags that we could not transpose:</h3>
+            <ul className="text-sm">
+              {unrecognizedTags.map((tag) => {
+                return <li key={tag}>{tag}</li>
+              })}
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold">Tags that we ignored:</h3>
+            <ul className="text-sm">
+              {ignoredTags.map((tag) => {
+                return <li key={tag}>{tag}</li>
+              })}
+            </ul>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }
