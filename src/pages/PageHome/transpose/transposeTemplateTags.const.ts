@@ -1,6 +1,6 @@
 import { TransposeTagsObject } from './typs'
 
-// TODO
+// TODO TAGGING
 // https://wiki.openstreetmap.org/wiki/Proposed_features/street_parking_revision#Dictionary:_old_vs._new_tags
 // parking:lane:side:type	not specified	parking:side	yes	only if parking:lane:side is specified in old tagging - new position unspecified in this case
 
@@ -67,6 +67,7 @@ export const transposeTemplate: TransposeTagsObject = {
       msg: 'Please provide the position of parked cars. This information was not recored previously, which is one of the benefits of the new schema.',
     },
   },
+  // TODO CODE: implement `keepValue`
   'parking:lane:{SIDE}:capacity': {
     keepValue: true,
     newTags: ['parking:{SIDE}:capacity'],
@@ -80,21 +81,21 @@ export const transposeTemplate: TransposeTagsObject = {
   'parking:condition:{SIDE}=disc': {
     newTags: [
       'parking:{SIDE}:access=yes',
-      // TODO: note also maxstay tagging; parking:side:authentication:disc=yes is suggested to explicitly record the usage of a parking disc
+      // TODO TAGGING: note also maxstay tagging; parking:side:authentication:disc=yes is suggested to explicitly record the usage of a parking disc
     ],
   },
   'parking:condition:{SIDE}=residents': {
     newTags: ['parking:{SIDE}:access=private'],
-    // TODO: note also residents/zone tagging
+    // TODO TAGGING: note also residents/zone tagging
   },
   'parking:condition:{SIDE}=ticket;residents': {
     newTags: ['parking:{SIDE}:access=yes', 'parking:{SIDE}:fee=yes'],
-    // TODO: note also residents/zone tagging
+    // TODO TAGGING: note also residents/zone tagging
   },
   'parking:condition:{SIDE}=residents;ticket': {
     // same as above, just the other key kombination
     newTags: ['parking:{SIDE}:access=yes', 'parking:{SIDE}:fee=yes'],
-    // TODO: note also residents/zone tagging
+    // TODO TAGGING: note also residents/zone tagging
   },
   'parking:condition:{SIDE}=customers': {
     newTags: ['parking:{SIDE}:access=customers'],
@@ -124,6 +125,6 @@ export const transposeTemplate: TransposeTagsObject = {
     newTags: ['parking:{SIDE}:access=yes'],
     msg: 'Hint: No parking condition is now tagged as no restriction.',
   },
-  // TODO: parking:condition:side:maxstay	...	parking:side:maxstay	...
-  // TODO: parking:condition:side:residents	...	parking:side:zone	...
+  // TODO TAGGING: parking:condition:side:maxstay	...	parking:side:maxstay	...
+  // TODO TAGGING: parking:condition:side:residents	...	parking:side:zone	...
 }
