@@ -39,7 +39,7 @@ export const transposeTemplate: TransposeTagsObject = {
     newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:stopping=no'],
   },
   'parking:lane:{SIDE}=fire_lane': {
-    newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:stopping:reason=fire_lane'],
+    newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:stopping=no', 'parking:{SIDE}:stopping:reason=fire_lane'],
   },
   'parking:lane:{SIDE}:{TYPE}=on_street': {
     newTags: ['parking:{SIDE}=lane'],
