@@ -14,6 +14,7 @@ export const PageHome: React.FC = () => {
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
   const [unrecognizedTags, setUnrecognizedTags] = useState<TagsStringArray>([])
   const [newTags, setNewTags] = useState<TransposeTagsObject>({})
+  const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const tags = event.target.value.split('\n').filter(Boolean)
@@ -98,6 +99,14 @@ export const PageHome: React.FC = () => {
               className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
               defaultValue={'todo'}
             />
+            {!!ignoredTagsEdgeCases.length && (
+              <div className="mt-2 bg-orange-100 p-3">
+                Please review the following tags. They include the term{' '}
+                <code>parking</code> which is a strong indication that they
+                should be handled manually:{' '}
+                <code>{ignoredTagsEdgeCases.join(', ')}</code>
+              </div>
+            )}
           </div>
         </div>
       </section>
