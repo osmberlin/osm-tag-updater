@@ -1,80 +1,163 @@
 import { describe, expect, test } from 'vitest'
 import { transposeTags } from './transposeTags'
+import { TransposeTagsObject } from './typs'
 
 describe('transposeTags()', () => {
-  describe('test SIDE', () => {
-    test('Works if nothing has to change, 1 tag', () => {
-      const input = { 'foo=a': 'bar=a' }
-      const result = transposeTags(input)
-
-      // console.log('result', JSON.stringify(result, undefined, 2))
-      expect(Object.keys(result)).toMatch('foo=a')
-      expect(result).toMatchObject(input)
-    })
-
-    test('Works if nothing has to change, 3 tag', () => {
-      const input = {
-        'foo=a': 'bar=a',
-        'lorem=a': 'ipsum=a',
-        'max=a': 'moritz=a',
-      }
-      const result = transposeTags(input)
-
-      expect(input).toMatchObject(result)
-    })
-
-    test('Works with {SIDE}', () => {
-      const input = {
-        'barOld:{SIDE}:bar': 'barNew:{SIDE}:bar',
-        'ipsumOld:{SIDE}': 'ipsumNew:{SIDE}',
-        max: 'moritz',
+  describe('handle {SIDE}', () => {
+    test('one key, one value', () => {
+      const input: TransposeTagsObject = {
+        'parking:lane:{SIDE}=yes': {
+          newTags: ['parking:{SIDE}=yes'],
+        },
       }
       const result = transposeTags(input)
 
       // console.log('result', JSON.stringify(result, undefined, 2))
-      expect(result).toMatchObject({
-        'barOld:left:bar': 'barNew:left:bar',
-        'barOld:right:bar': 'barNew:right:bar',
-        'barOld:both:bar': 'barNew:both:bar',
-        'ipsumOld:left': 'ipsumNew:left',
-        'ipsumOld:right': 'ipsumNew:right',
-        'ipsumOld:both': 'ipsumNew:both',
-        max: 'moritz',
-      })
+      const compare = {
+        'parking:lane:left=yes': {
+          newTags: ['parking:left=yes'],
+        },
+        'parking:lane:right=yes': {
+          newTags: ['parking:right=yes'],
+        },
+        'parking:lane:both=yes': {
+          newTags: ['parking:both=yes'],
+        },
+      }
+      expect(result).toMatchObject(compare)
+    })
+
+    test('one key, one value, with missingTag key', () => {
+      const input: TransposeTagsObject = {
+        'parking:lane:{SIDE}=marked': {
+          newTags: ['parking:{SIDE}:markings=yes'],
+          missingField: {
+            key: 'parking:{SIDE}:orientation',
+            values: ['foo'],
+            msg: 'MSG',
+          },
+        },
+      }
+      const result = transposeTags(input)
+
+      // console.log('result', JSON.stringify(result, undefined, 2))
+      const compare = {
+        'parking:lane:left=marked': {
+          newTags: ['parking:left:markings=yes'],
+          missingField: {
+            key: 'parking:left:orientation',
+            values: ['foo'],
+            msg: 'MSG',
+          },
+        },
+        'parking:lane:right=marked': {
+          newTags: ['parking:right:markings=yes'],
+          missingField: {
+            key: 'parking:right:orientation',
+            values: ['foo'],
+            msg: 'MSG',
+          },
+        },
+        'parking:lane:both=marked': {
+          newTags: ['parking:both:markings=yes'],
+          missingField: {
+            key: 'parking:both:orientation',
+            values: ['foo'],
+            msg: 'MSG',
+          },
+        },
+      }
+      expect(result).toMatchObject(compare)
+    })
+
+    test('two keys, two values', () => {
+      const input: TransposeTagsObject = {
+        'parking:lane:{SIDE}=no_stopping': {
+          newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:stopping=no'],
+        },
+        'parking:condition:{SIDE}=disabled': {
+          newTags: [
+            'parking:{SIDE}:access=no',
+            'parking:{SIDE}:disabled=designated',
+          ],
+        },
+      }
+      const result = transposeTags(input)
+
+      // console.log('result', JSON.stringify(result, undefined, 2))
+      const compare = {
+        'parking:lane:left=no_stopping': {
+          newTags: ['parking:left=no', 'parking:left:stopping=no'],
+        },
+        'parking:lane:right=no_stopping': {
+          newTags: ['parking:right=no', 'parking:right:stopping=no'],
+        },
+        'parking:lane:both=no_stopping': {
+          newTags: ['parking:both=no', 'parking:both:stopping=no'],
+        },
+        'parking:condition:left=disabled': {
+          newTags: [
+            'parking:left:access=no',
+            'parking:left:disabled=designated',
+          ],
+        },
+        'parking:condition:right=disabled': {
+          newTags: [
+            'parking:right:access=no',
+            'parking:right:disabled=designated',
+          ],
+        },
+        'parking:condition:both=disabled': {
+          newTags: [
+            'parking:both:access=no',
+            'parking:both:disabled=designated',
+          ],
+        },
+      }
+      expect(result).toMatchObject(compare)
     })
   })
 
-  describe('test TYPE', () => {
+  describe('handle {TYPE}', () => {
     test('Works with {TYPE} (and {SIDE})', () => {
-      const input = {
-        'barOld:{SIDE}:{TYPE}:bar=a': 'barNew:{SIDE}:{TYPE}:bar=a',
-        'ipsumOld:{SIDE}:{TYPE}=a': 'ipsumNew:{SIDE}={TYPE}',
-        'max=a': 'moritz=a',
+      const input: TransposeTagsObject = {
+        'parking:lane:{SIDE}:{TYPE}=on_street': {
+          newTags: ['parking:{SIDE}=lane'],
+        },
       }
       const result = transposeTags(input)
 
       // console.log('result', JSON.stringify(result, undefined, 2))
-      expect(result).toMatchObject({
-        'max=a': 'moritz=a',
-        'barOld:left:parallel:bar=a': 'barNew:left:parallel:bar=a',
-        'barOld:left:diagonal:bar=a': 'barNew:left:diagonal:bar=a',
-        'barOld:left:perpendicular:bar=a': 'barNew:left:perpendicular:bar=a',
-        'barOld:right:parallel:bar=a': 'barNew:right:parallel:bar=a',
-        'barOld:right:diagonal:bar=a': 'barNew:right:diagonal:bar=a',
-        'barOld:right:perpendicular:bar=a': 'barNew:right:perpendicular:bar=a',
-        'barOld:both:parallel:bar=a': 'barNew:both:parallel:bar=a',
-        'barOld:both:diagonal:bar=a': 'barNew:both:diagonal:bar=a',
-        'barOld:both:perpendicular:bar=a': 'barNew:both:perpendicular:bar=a',
-        'ipsumOld:left:parallel=a': 'ipsumNew:left=parallel',
-        'ipsumOld:left:diagonal=a': 'ipsumNew:left=diagonal',
-        'ipsumOld:left:perpendicular=a': 'ipsumNew:left=perpendicular',
-        'ipsumOld:right:parallel=a': 'ipsumNew:right=parallel',
-        'ipsumOld:right:diagonal=a': 'ipsumNew:right=diagonal',
-        'ipsumOld:right:perpendicular=a': 'ipsumNew:right=perpendicular',
-        'ipsumOld:both:parallel=a': 'ipsumNew:both=parallel',
-        'ipsumOld:both:diagonal=a': 'ipsumNew:both=diagonal',
-        'ipsumOld:both:perpendicular=a': 'ipsumNew:both=perpendicular',
-      })
+      const compare = {
+        'parking:lane:left:parallel=on_street': {
+          newTags: ['parking:left=lane'],
+        },
+        'parking:lane:left:diagonal=on_street': {
+          newTags: ['parking:left=lane'],
+        },
+        'parking:lane:left:perpendicular=on_street': {
+          newTags: ['parking:left=lane'],
+        },
+        'parking:lane:right:parallel=on_street': {
+          newTags: ['parking:right=lane'],
+        },
+        'parking:lane:right:diagonal=on_street': {
+          newTags: ['parking:right=lane'],
+        },
+        'parking:lane:right:perpendicular=on_street': {
+          newTags: ['parking:right=lane'],
+        },
+        'parking:lane:both:parallel=on_street': {
+          newTags: ['parking:both=lane'],
+        },
+        'parking:lane:both:diagonal=on_street': {
+          newTags: ['parking:both=lane'],
+        },
+        'parking:lane:both:perpendicular=on_street': {
+          newTags: ['parking:both=lane'],
+        },
+      }
+      expect(result).toMatchObject(compare)
     })
   })
 })

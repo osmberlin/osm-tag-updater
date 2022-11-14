@@ -1,6 +1,6 @@
 import { transposeTags } from './transposeTags'
 import { transposeTemplate } from './transposeTemplateTags.const'
-import { TagsStringArray } from './typs'
+import { TagsStringArray, TransposeTagObject } from './typs'
 
 export const transpose = (tags: TagsStringArray) => {
   const inputTags = tags.filter(Boolean)
@@ -10,14 +10,13 @@ export const transpose = (tags: TagsStringArray) => {
   const transposedTags = transposeTags(transposeTemplate)
 
   const unrecognizedTags: TagsStringArray = []
-  const newTags: TagsStringArray = []
+  const newTags: TransposeTagObject[] = []
   candidateTags.forEach((tag) => {
-    const [oldKey, oldVal] = tag.split('=')
-    const newTag = transposedTags[oldKey || '']
-    if (!newTag) {
+    const newTagTEMP = transposedTags[tag]
+    if (!newTagTEMP) {
       unrecognizedTags.push(tag)
     } else {
-      newTags.push(`${newTag}=${oldVal}`)
+      newTags.push(newTagTEMP)
     }
   })
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { TagsStringArray, transpose } from './transpose'
+import { TagsStringArray, transpose, TransposeTagObject } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
 import { tagsObjectToStringArray } from './utils'
 
@@ -11,7 +11,7 @@ export const PageHome: React.FC = () => {
   const inputTags = data?.elements?.[0]?.tags
   const inputTagsString = tagsObjectToStringArray(inputTags)
 
-  const [newTags, setNewTags] = useState<TagsStringArray>([])
+  const [newTags, setNewTags] = useState<TransposeTagObject[]>([])
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
   const [unrecognizedTags, setUnrecognizedTags] = useState<TagsStringArray>([])
 
@@ -76,7 +76,7 @@ export const PageHome: React.FC = () => {
           <textarea
             className="h-52 w-full resize rounded border bg-gray-50 font-mono"
             readOnly
-            value={newTags.join('\n')}
+            value={newTags.map((t) => JSON.stringify(t)).join('\n')}
           />
           <h3 className="font-semibold">Tags that we could not transpose:</h3>
           <ul>
