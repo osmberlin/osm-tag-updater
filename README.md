@@ -1,14 +1,14 @@
-# WIP
+# OSM Tag Updater
 
-The idea is, to build a tool that will help mappers to update deprecated tags in a reagion they know.
+The general idea is, to build a tool that will help mappers to update deprecated tags in a reagion they know.
 
-## Basic concept
+## OSM `parking:lane` schema update
 
-- Show a map/bbox
-- List all osm elements with deprecated tags in a table
-- Transpose the deprecated tags to the new tags, show them as part of the table
-- Highlight tags that cannot be tranposed automatically; allow to change those manually
-- Allow to commmit the updated tags to OSM after human review
+The concrete use case is to provide a tool tool that helps with updating the parking lane data, following the [street parking revision proposal](https://wiki.openstreetmap.org/wiki/Proposed_features/street_parking_revision).
+
+## Prototype
+
+https://osmberlin.github.io/osm-tag-updater/
 
 # Development
 
