@@ -22,12 +22,16 @@ This is a plain Typescript React App using Vite.
 
 Old vs. new schema docs https://wiki.openstreetmap.org/wiki/Proposed_features/street_parking_revision#Dictionary:_old_vs._new_tags
 
-# MVPs
+# Minimum Viable Products (MVPs)
 
-## MVP 1
+A very rough outline of possible MVP releases. Each MVP has a feasable workflow to use the tool to update the given tagging. However, the mapping UX becomes better with each MVP
 
-- Online tool that takes a list of tags (one Textfield) and transposes them to the new tags (second Textfield)
-- Transposed tags need to be copied to an editor manually
+`WIP` (work in progress) features are already part of the prototype in some form.
+
+## MVP 1 – WIP
+
+- WIP – Online tool that takes a list of tags (one Textfield) and transposes them to the new tags (second Textfield)
+- WIP – Transposed tags need to be copied to an editor manually
 - A MapRoulette challenge with custom description part that holds a link to the tool
 
 _Workflow:_
@@ -37,9 +41,9 @@ Separate: Editor => Find ways again => Update tags there
 
 (Data preparation for MapRoulette requires quite a bit preprocessing.)
 
-## MVP 2
+## MVP 2 – WIP
 
-- The tool can be opened with a OSM ID and transposes those
+- WIP – The tool can be opened with a OSM ID and transposes those
 - Mappers can then open iD / JOSM from there
 - Now we could use this tools URL in a MapRoulette challenge as primary editor. 
 
