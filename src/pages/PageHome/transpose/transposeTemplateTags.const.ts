@@ -33,16 +33,19 @@ export const transposeTemplate: TransposeTagsObject = {
     newTags: ['parking:{SIDE}=no'],
   },
   'parking:lane:{SIDE}=no_parking': {
-    newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:access=no'],
+    newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:restriction=no_parking'],
+  },
+  'parking:lane:{SIDE}=no_standing': {
+    newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:restriction=no_standing'],
   },
   'parking:lane:{SIDE}=no_stopping': {
-    newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:stopping=no'],
+    newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:restriction=no_stopping'],
   },
   'parking:lane:{SIDE}=fire_lane': {
     newTags: [
       'parking:{SIDE}=no',
-      'parking:{SIDE}:stopping=no',
-      'parking:{SIDE}:stopping:reason=fire_lane',
+      'parking:{SIDE}:restriction=no_stopping',
+      'parking:{SIDE}:restriction:reason=fire_lane',
     ],
   },
   'parking:lane:{SIDE}:{TYPE}=on_street': {
@@ -111,23 +114,20 @@ export const transposeTemplate: TransposeTagsObject = {
     newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:disabled=designated'],
   },
   'parking:condition:{SIDE}=loading': {
-    newTags: [
-      'parking:{SIDE}:access=yes',
-      'parking:{SIDE}:maxstay=load-unload',
-    ],
+    newTags: ['parking:{SIDE}:restriction=loading_only',],
   },
   'parking:condition:{SIDE}=no_parking': {
-    newTags: ['parking:{SIDE}:access=no'],
+    newTags: ['parking:{SIDE}:restriction=no_parking'],
   },
   'parking:condition:{SIDE}=no_standing': {
-    newTags: ['parking:{SIDE}:waiting=no'],
+    newTags: ['parking:{SIDE}:restriction=no_standing'],
   },
   'parking:condition:{SIDE}=no_stopping': {
-    newTags: ['parking:{SIDE}:stopping=no'],
+    newTags: ['parking:{SIDE}:restriction=no_stopping'],
   },
   'parking:condition:{SIDE}=no': {
-    newTags: ['parking:{SIDE}:access=yes'],
-    msg: 'Hint: No parking condition is now tagged as no restriction.',
+    newTags: ['parking:{SIDE}:restriction=none'],
+    msg: 'Hint: Parking restriction unspecified.',
   },
   // TODO TAGGING: parking:condition:side:maxstay	...	parking:side:maxstay	...
   // TODO TAGGING: parking:condition:side:residents	...	parking:side:zone	...
