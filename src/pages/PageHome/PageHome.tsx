@@ -69,7 +69,10 @@ export const PageHome: React.FC = () => {
             />
           </div>
           <div>
-            <h2 className="mb-2 font-bold">Output</h2>
+            <div className="mb-2 flex justify-between">
+              <h2 className="font-bold">Output</h2>
+              <CopyButton text={outputTags.join('\n')} />
+            </div>
             <textarea
               className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
               value={outputTags.join('\n')}
