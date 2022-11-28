@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { CopyButton } from './CopyButton'
 import { InputForm } from './InputForm'
+import { Table } from './Table'
 import { TagsStringArray, transpose, TransposeTagsObject } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
 import { tagsObjectToStringArray } from './utils'
@@ -15,6 +17,7 @@ export const PageHome: React.FC = () => {
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
   const [unrecognizedTags, setUnrecognizedTags] = useState<TagsStringArray>([])
   const [newTags, setNewTags] = useState<TransposeTagsObject>({})
+  const [outputTags, setOutputTags] = useState<string[]>([])
   const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -84,41 +87,7 @@ export const PageHome: React.FC = () => {
       </section>
 
       <section className="mt-5">
-        <h2 className="mb-2 font-bold">New Tags</h2>
-        <table className="w-full">
-          <thead className="border-b-4">
-            <tr>
-              <th className="text-left font-semibold">Old Tags:</th>
-              <th className="text-left font-semibold">New Tags:</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(newTags).map(([oldTag, newTagObject]) => {
-              return (
-                <tr key={oldTag} className="border-b hover:bg-purple-50">
-                  <th className="w-1/3 py-1 text-left align-top font-semibold">
-                    {oldTag}
-                  </th>
-                  <td className="space-y-1 py-1 align-top">
-                    {newTagObject.newTags.map((newTag) => {
-                      return (
-                        <input
-                          key={newTag}
-                          type="text"
-                          defaultValue={newTag}
-                          className="block w-full rounded-sm border bg-yellow-50 px-1 py-0.5"
-                        />
-                      )
-                    })}
-                    <div className="text-xs text-gray-300 hover:text-gray-600">
-                      {JSON.stringify(newTagObject)}
-                    </div>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        <Table newTags={newTags} setOutputTags={setOutputTags} />
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold">Tags that we could not transpose:</h3>
