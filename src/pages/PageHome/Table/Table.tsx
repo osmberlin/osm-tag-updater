@@ -5,7 +5,7 @@ import { TransposeTagsObject } from '../transpose'
 
 type Props = {
   newTags: TransposeTagsObject
-  setOutputTags: (tags: string[]) => VideoFacingModeEnum
+  setOutputTags: (tags: string[]) => void
 }
 
 type FormValues = {
