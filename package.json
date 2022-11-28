@@ -11,10 +11,12 @@
     "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
     "test": "vitest watch",
+    "test:run": "vitest run",
     "test:ui": "vitest --ui",
     "coverage": "vitest run --coverage",
     "check": "npm run type-check && npm run lint && npm run format && vitest run",
-    "deploy": "chmod +x ./deploy.sh && ./deploy.sh"
+    "deploy": "chmod +x ./deploy.sh && ./deploy.sh",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.14.6",
@@ -49,6 +51,7 @@
     "typescript": "^4.8.4",
     "vite": "^3.2.0",
     "vite-plugin-svgr": "^2.2.2",
-    "vitest": "^0.24.5"
+    "vitest": "^0.24.5",
+    "husky": "^8.0.0"
   }
 }
