@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { InputForm } from './InputForm'
 import { TagsStringArray, transpose, TransposeTagsObject } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
 import { tagsObjectToStringArray } from './utils'
@@ -34,15 +35,6 @@ export const PageHome: React.FC = () => {
     inputTagsString && handleUpdate(inputTagsString)
   }, [data])
 
-  const fetchDataByWayId = (event: React.FormEvent) => {
-    event.preventDefault()
-    const target = event.target as typeof event.target & {
-      way_id: { value: string }
-    }
-    const wayId = parseInt(target.way_id.value)
-    wayId && setOsmWayId(wayId)
-  }
-
   if (!data) {
     if (isError) {
       // @ts-ignore need to check this in the library or github issues
@@ -65,27 +57,7 @@ export const PageHome: React.FC = () => {
           <div>
             <div className="mb-2 flex justify-between">
               <h2 className="font-bold">Input</h2>
-              <form className="flex gap-1" onSubmit={fetchDataByWayId}>
-                <div className="group flex items-center">
-                  <div className="inline-flex text-xs group-hover:bg-blue-50">
-                    way/
-                  </div>
-                  <input
-                    type="text"
-                    id="way_id"
-                    name="way_id"
-                    className="w-24 rounded-sm border p-0.5 text-xs group-hover:bg-blue-50"
-                    defaultValue={osmWayId}
-                    placeholder="OSM Way ID"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="rounded border bg-gray-50 p-0.5 text-xs font-semibold hover:bg-blue-50"
-                >
-                  Load
-                </button>
-              </form>
+              <InputForm currentWayId={osmWayId} onSubmit={setOsmWayId} />
             </div>
             <textarea
               className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
