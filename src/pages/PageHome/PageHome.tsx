@@ -72,7 +72,8 @@ export const PageHome: React.FC = () => {
             <h2 className="mb-2 font-bold">Output</h2>
             <textarea
               className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
-              defaultValue={'todo'}
+              value={outputTags.join('\n')}
+              readOnly
             />
             {!!ignoredTagsEdgeCases.length && (
               <div className="mt-2 bg-orange-100 p-3">
