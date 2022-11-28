@@ -114,7 +114,7 @@ export const transposeTemplate: TransposeTagsObject = {
     newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:disabled=designated'],
   },
   'parking:condition:{SIDE}=loading': {
-    newTags: ['parking:{SIDE}:restriction=loading_only',],
+    newTags: ['parking:{SIDE}:restriction=loading_only'],
   },
   'parking:condition:{SIDE}=no_parking': {
     newTags: ['parking:{SIDE}:restriction=no_parking'],
