@@ -14,14 +14,11 @@ export const InputForm: React.FC<Props> = ({ currentWayId, onSubmit }) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormData>()
 
-  console.log(watch('wayId'))
-
   const innerOnSubmit = handleSubmit((data) => {
-    console.log(data)
+    // console.log(data)
     onSubmit(data.wayId)
   })
 
