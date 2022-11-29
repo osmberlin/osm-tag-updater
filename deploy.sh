@@ -9,7 +9,7 @@ set -e
 # Increase version
 # Which will commit the change version number; which is then available at build time
 # Docs https://docs.npmjs.com/cli/v8/commands/npm-version
-npm version patch --no-git-tag-version
+npm version patch
 
 # build
 npm run build
