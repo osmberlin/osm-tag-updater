@@ -20,4 +20,7 @@ export default defineConfig({
     sourcemap: true,
   },
   base: 'https://osmberlin.github.io/osm-tag-updater/',
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
 })
