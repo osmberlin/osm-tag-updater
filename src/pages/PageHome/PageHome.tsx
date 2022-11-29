@@ -71,7 +71,20 @@ export const PageHome: React.FC = () => {
           <div>
             <div className="mb-2 flex justify-between">
               <h2 className="font-bold">Output</h2>
-              <CopyButton text={outputTags.join('\n')} />
+              <div className="flex gap-3">
+                <CopyButton text={outputTags.join('\n')}>
+                  Copy Parking Tags
+                </CopyButton>
+                <CopyButton
+                  text={[
+                    ...outputTags,
+                    ...ignoredTags,
+                    ...unrecognizedTags,
+                  ].join('\n')}
+                >
+                  Copy All Tags
+                </CopyButton>
+              </div>
             </div>
             <textarea
               className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
