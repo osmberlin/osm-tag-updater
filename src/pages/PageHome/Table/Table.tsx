@@ -21,6 +21,7 @@ export const Table: React.FC<Props> = ({ newTags, setOutputTags }) => {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
@@ -28,21 +29,16 @@ export const Table: React.FC<Props> = ({ newTags, setOutputTags }) => {
     },
     mode: 'onChange',
   })
-  const { fields, append, remove } = useFieldArray<FormValues>({
+  const { fields, append } = useFieldArray<FormValues>({
     name: 'tags',
     control,
   })
 
   const onChange = handleSubmit((data: FormValues) => {
-    console.log(data)
     setOutputTags(data.tags.map((d) => d.newTag))
   })
 
-  // TODO: Fix reset when wayId changes
-  useEffect(() => remove(), [])
-
-  // Populate form
-  useEffect(() => {
+  const populateAndCleanupForm = () => {
     const initialOutputTags: string[] = []
     Object.entries(newTags).map(([oldTag, newTagObject]) => {
       newTagObject.newTags.map((newTag) => {
@@ -51,6 +47,16 @@ export const Table: React.FC<Props> = ({ newTags, setOutputTags }) => {
       })
     })
     setOutputTags(initialOutputTags)
+  }
+
+  // const resetForm = () => {
+  //   reset()
+  //   setTimeout(() => populateAndCleanupForm(), 1000)
+  // }
+
+  useEffect(() => {
+    reset()
+    populateAndCleanupForm()
   }, [newTags])
 
   let oldTagStore = '' // Styling
@@ -59,6 +65,9 @@ export const Table: React.FC<Props> = ({ newTags, setOutputTags }) => {
     <>
       <h2 className="mb-2 font-bold">New Tags</h2>
       <form onChange={onChange}>
+        {/* <button type="button" onClick={resetForm}>
+          Reset
+        </button> */}
         <table className="w-full">
           <thead className="border-b-4">
             <tr>

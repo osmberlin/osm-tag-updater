@@ -105,6 +105,7 @@ export const PageHome: React.FC = () => {
 
       <section className="mt-5">
         <Table newTags={newTags} setOutputTags={setOutputTags} />
+
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold">Tags that we could not transpose:</h3>
