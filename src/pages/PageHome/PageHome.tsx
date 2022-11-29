@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { CopyButton } from './CopyButton'
 import { InputForm } from './InputForm'
+import { InputTags } from './InputTags'
 import { Table } from './Table'
 import { TagsStringArray, transpose, TransposeTagsObject } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
@@ -19,11 +20,6 @@ export const PageHome: React.FC = () => {
   const [newTags, setNewTags] = useState<TransposeTagsObject>({})
   const [outputTags, setOutputTags] = useState<string[]>([])
   const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
-
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const tags = event.target.value.split('\n').filter(Boolean)
-    handleUpdate(tags)
-  }
 
   const handleUpdate = (tags: TagsStringArray) => {
     const { ignoredTags, unrecognizedTags, newTags } = transpose(tags)
@@ -62,11 +58,7 @@ export const PageHome: React.FC = () => {
               <h2 className="font-bold">Input</h2>
               <InputForm currentWayId={osmWayId} onSubmit={setOsmWayId} />
             </div>
-            <textarea
-              className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
-              onChange={handleChange}
-              defaultValue={inputTagsString?.join('\n')}
-            />
+            <InputTags inputTags={inputTagsString} onSubmit={handleUpdate} />
           </div>
           <div>
             <div className="mb-2 flex justify-between">
