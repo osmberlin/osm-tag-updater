@@ -6,6 +6,7 @@ Siehe issue von Alex "marked", "painted_area_only".
 # Duplikate von key vermeiden
 
 Warnung wenn ein Key 2x vorkommt, dann manuell auflösen.
+Bspw. 2x fixme.
 
 # Github verlinken
 
@@ -16,3 +17,7 @@ Warnung wenn ein Key 2x vorkommt, dann manuell auflösen.
 `parking:condition:right=residents`
 
 # Nicht verstandene Tags klarer hervorheben
+
+# Missing field
+
+parking:lane:$side = marked
