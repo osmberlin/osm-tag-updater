@@ -11,7 +11,7 @@ describe('transpose()', () => {
     const compare = {
       ignoredTags: [],
       newTagObjects: {},
-      unrecognizedTags: [],
+      newTagsManualCandidates: [],
     }
     expect(result).toMatchObject(compare)
   })

@@ -16,17 +16,19 @@ export const PageHome: React.FC = () => {
   const inputTagsString = tagsObjectToStringArray(inputTags)
 
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
-  const [unrecognizedTags, setUnrecognizedTags] = useState<TagsStringArray>([])
+  const [newTagsManualCandidates, setNewTagsManualCandidates] =
+    useState<TagsStringArray>([])
   const [newTagObjects, setNewTagObjects] = useState<TagsNewTagsObjects>({})
   const [outputTags, setOutputTags] = useState<string[]>([])
   const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
 
   const handleUpdate = (tags: TagsStringArray) => {
-    const { ignoredTags, unrecognizedTags, newTagObjects } = transpose(tags)
-    console.log({ ignoredTags, unrecognizedTags, newTagObjects })
+    const { ignoredTags, newTagsManualCandidates, newTagObjects } =
+      transpose(tags)
+    console.log({ ignoredTags, newTagsManualCandidates, newTagObjects })
 
     setIgnoredTags(ignoredTags)
-    setUnrecognizedTags(unrecognizedTags)
+    setNewTagsManualCandidates(newTagsManualCandidates)
     setNewTagObjects(newTagObjects)
   }
 
@@ -74,7 +76,7 @@ export const PageHome: React.FC = () => {
                   text={[
                     ...outputTags,
                     ...ignoredTags,
-                    ...unrecognizedTags,
+                    ...newTagsManualCandidates,
                   ].join('\n')}
                 >
                   Copy All Tags
@@ -103,9 +105,12 @@ export const PageHome: React.FC = () => {
 
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>
-            <h3 className="font-semibold">Tags that we could not transpose:</h3>
+            <h3 className="font-semibold">
+              Tags that could not be transposed automatically – you need to
+              check them manually:
+            </h3>
             <ul className="text-sm">
-              {unrecognizedTags.map((tag) => {
+              {newTagsManualCandidates.map((tag) => {
                 return <li key={tag}>{tag}</li>
               })}
             </ul>

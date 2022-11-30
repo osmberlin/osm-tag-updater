@@ -14,15 +14,15 @@ export const transpose = (tags: TagsStringArray) => {
 
   const transposedTags = tagsFromTemplate(tagsTemplates)
 
-  const unrecognizedTags: TagsStringArray = []
+  const newTagsManualCandidates: TagsStringArray = []
   const newTagObjects: TagsNewTagsObjects = {}
   candidateTags.forEach((tag) => {
     if (!transposedTags[tag]) {
-      unrecognizedTags.push(tag)
+      newTagsManualCandidates.push(tag)
     } else {
       newTagObjects[tag] = transposedTags[tag]
     }
   })
 
-  return { ignoredTags, unrecognizedTags, newTagObjects }
+  return { ignoredTags, newTagsManualCandidates, newTagObjects }
 }
