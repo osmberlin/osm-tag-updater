@@ -5,7 +5,9 @@ import { TagsStringArray } from './types'
 import { count, getKey, getValue } from './utils'
 
 export const transpose = (tags: TagsStringArray) => {
-  const inputTags = tags.filter(Boolean)
+  const inputTags = tags
+    .filter(Boolean)
+    .map((t) => t.replaceAll('	', ''))
   const ignoredTags: TagsStringArray = inputTags.filter(
     (t) => !t.startsWith('parking:')
   )

@@ -15,6 +15,19 @@ describe('transpose()', () => {
     expect(result).toMatchObject(compare)
   })
 
+  test('cleanup tabs', () => {
+    const input: TagsStringArray = ['parking:lane:left	=	separate']
+    const result = transpose(input)
+
+    const compare = {
+      'parking:lane:left=separate': {
+        compare: 'tag',
+        newTags: ['parking:left=separate'],
+      },
+    }
+    expect(result.newTagObjects).toMatchObject(compare)
+  })
+
   test('handles ignoredTags and manual candidates', () => {
     const input: TagsStringArray = ['foo=bar', 'parking:lane:unknown=unknown']
     const result = transpose(input)
