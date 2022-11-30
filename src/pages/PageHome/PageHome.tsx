@@ -3,7 +3,7 @@ import { CopyButton } from './CopyButton'
 import { InputForm } from './InputForm'
 import { InputTags } from './InputTags'
 import { Table } from './Table'
-import { TagsStringArray, transpose, TransposeTagsObject } from './transpose'
+import { transpose, TagsTemplates, TagsStringArray } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
 import { tagsObjectToStringArray } from './utils'
 
@@ -17,7 +17,7 @@ export const PageHome: React.FC = () => {
 
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
   const [unrecognizedTags, setUnrecognizedTags] = useState<TagsStringArray>([])
-  const [newTags, setNewTags] = useState<TransposeTagsObject>({})
+  const [newTags, setNewTags] = useState<TagsTemplates>({})
   const [outputTags, setOutputTags] = useState<string[]>([])
   const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
 

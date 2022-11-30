@@ -1,6 +1,7 @@
-import { transposeTags } from './transposeTags'
-import { transposeTemplate } from './transposeTemplateTags.const'
-import { TagsStringArray, TransposeTagsObject } from './typs'
+import { tagsFromTemplate } from './tagTemplates/tagsFromTemplate'
+import { tagsTemplates } from './tagTemplates/tagsTemplates.const'
+import { TagsTemplates } from './tagTemplates/types'
+import { TagsStringArray } from './types'
 
 export const transpose = (tags: TagsStringArray) => {
   const inputTags = tags.filter(Boolean)
@@ -11,10 +12,10 @@ export const transpose = (tags: TagsStringArray) => {
     t.startsWith('parking:')
   )
 
-  const transposedTags = transposeTags(transposeTemplate)
+  const transposedTags = tagsFromTemplate(tagsTemplates)
 
   const unrecognizedTags: TagsStringArray = []
-  const newTags: TransposeTagsObject = {}
+  const newTags: TagsTemplates = {}
   candidateTags.forEach((tag) => {
     const newTagTEMP = transposedTags[tag]
     if (!newTagTEMP) {

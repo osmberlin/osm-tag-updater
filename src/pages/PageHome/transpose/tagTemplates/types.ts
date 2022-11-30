@@ -1,8 +1,4 @@
-export type TagsStringArray = string[]
-
-export type TagsObject = { [key: string]: string }
-
-export type TransposeTagObject = {
+export type TagsTemplateNewTagsObject = {
   newTags: string[]
   /** @desc: If the value of the given key should be copied to the newTag */
   keepValue?: true
@@ -14,6 +10,6 @@ export type TransposeTagObject = {
   msg?: string
 }
 
-export type TransposeTagsObject = {
-  [key: string]: TransposeTagObject
+export type TagsTemplates = {
+  [key: string]: TagsTemplateNewTagsObject
 }

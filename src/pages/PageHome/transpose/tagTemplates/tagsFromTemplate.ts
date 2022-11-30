@@ -1,4 +1,4 @@
-import { TransposeTagsObject } from './typs'
+import { TagsTemplates } from './types'
 
 const sideTemplate = '{SIDE}'
 const sides = ['left', 'right', 'both']
@@ -7,14 +7,14 @@ const sides = ['left', 'right', 'both']
 // }
 
 const typeTemplate = '{TYPE}'
-const types = ['parallel', 'diagonal', 'perpendicular']
+const types = ['parallel', 'diagonal', 'perpendicular', 'marked']
 const hasType = (tag: string) => {
   return tag.includes(typeTemplate)
 }
 
-export const transposeTags = (tagsTemplate: TransposeTagsObject) => {
+export const tagsFromTemplate = (tagsTemplate: TagsTemplates) => {
   // First run for SIDE
-  const tagsWithSide: TransposeTagsObject = {}
+  const tagsWithSide: TagsTemplates = {}
   Object.entries(tagsTemplate).forEach(([oldTagTempl, newTagTempl]) => {
     const { newTags, missingField } = newTagTempl
     const missingFieldKey = missingField?.key
@@ -48,7 +48,7 @@ export const transposeTags = (tagsTemplate: TransposeTagsObject) => {
   })
 
   // Second run for TYPE
-  const tagsWithSideAndType: TransposeTagsObject = tagsWithSide
+  const tagsWithSideAndType: TagsTemplates = tagsWithSide
   Object.entries(tagsWithSideAndType).forEach(([oldTagTempl, newTagTempl]) => {
     if (hasType(oldTagTempl)) {
       delete tagsWithSide[oldTagTempl]

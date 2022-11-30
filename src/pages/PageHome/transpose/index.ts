@@ -1,4 +1,3 @@
+export * from './tagTemplates'
 export * from './transpose'
-export * from './transposeTags'
-export * from './transposeTemplateTags.const'
-export * from './typs'
+export * from './types'

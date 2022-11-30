@@ -1,16 +1,16 @@
 import { describe, expect, test } from 'vitest'
-import { transposeTags } from './transposeTags'
-import { TransposeTagsObject } from './typs'
+import { tagsFromTemplate } from './tagsFromTemplate'
+import { TagsTemplates } from './types'
 
-describe('transposeTags()', () => {
+describe('tagsFromTemplate()', () => {
   describe('handle {SIDE}', () => {
     test('one key, one value', () => {
-      const input: TransposeTagsObject = {
+      const input: TagsTemplates = {
         'parking:lane:{SIDE}=yes': {
           newTags: ['parking:{SIDE}=yes'],
         },
       }
-      const result = transposeTags(input)
+      const result = tagsFromTemplate(input)
 
       // console.log('result', JSON.stringify(result, undefined, 2))
       const compare = {
@@ -28,7 +28,7 @@ describe('transposeTags()', () => {
     })
 
     test('one key, one value, with missingTag key', () => {
-      const input: TransposeTagsObject = {
+      const input: TagsTemplates = {
         'parking:lane:{SIDE}=marked': {
           newTags: ['parking:{SIDE}:markings=yes'],
           missingField: {
@@ -38,7 +38,7 @@ describe('transposeTags()', () => {
           },
         },
       }
-      const result = transposeTags(input)
+      const result = tagsFromTemplate(input)
 
       // console.log('result', JSON.stringify(result, undefined, 2))
       const compare = {
@@ -71,7 +71,7 @@ describe('transposeTags()', () => {
     })
 
     test('two keys, two values', () => {
-      const input: TransposeTagsObject = {
+      const input: TagsTemplates = {
         'parking:lane:{SIDE}=no_stopping': {
           newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:stopping=no'],
         },
@@ -82,7 +82,7 @@ describe('transposeTags()', () => {
           ],
         },
       }
-      const result = transposeTags(input)
+      const result = tagsFromTemplate(input)
 
       // console.log('result', JSON.stringify(result, undefined, 2))
       const compare = {
@@ -120,12 +120,12 @@ describe('transposeTags()', () => {
 
   describe('handle {TYPE}', () => {
     test('Works with {TYPE} (and {SIDE})', () => {
-      const input: TransposeTagsObject = {
+      const input: TagsTemplates = {
         'parking:lane:{SIDE}:{TYPE}=on_street': {
           newTags: ['parking:{SIDE}=lane'],
         },
       }
-      const result = transposeTags(input)
+      const result = tagsFromTemplate(input)
 
       // console.log('result', JSON.stringify(result, undefined, 2))
       const compare = {

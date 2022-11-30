@@ -1,11 +1,8 @@
-import { TransposeTagsObject } from './typs'
-
-// TODO TAGGING
-// https://wiki.openstreetmap.org/wiki/Proposed_features/street_parking_revision#Dictionary:_old_vs._new_tags
-// parking:lane:side:type	not specified	parking:side	yes	only if parking:lane:side is specified in old tagging - new position unspecified in this case
+import { TagsTemplates } from './types'
 
 // Source: https://wiki.openstreetmap.org/wiki/Proposed_features/street_parking_revision#Dictionary:_old_vs._new_tags
-export const transposeTemplate: TransposeTagsObject = {
+// Source: https://ethercalc.net/kmmtdv6273sy
+export const tagsTemplates: TagsTemplates = {
   'parking:lane:{SIDE}=yes': {
     newTags: ['parking:{SIDE}=yes'],
   },
@@ -80,29 +77,31 @@ export const transposeTemplate: TransposeTagsObject = {
     newTags: ['parking:{SIDE}:capacity'],
   },
   'parking:condition:{SIDE}=free': {
-    newTags: ['parking:{SIDE}:access=yes', 'parking:{SIDE}:fee=no'],
+    newTags: ['parking:{SIDE}:fee=no'],
+  },
+  'parking:condition:{SIDE}:conditional=free @ {*}': {
+    // TODO, wenn :conditional mehrere @-Zeiten hat, dann entweder splitten oder warning für manuelle Bearbeitung
+    newTags: ['parking:{SIDE}:fee:conditional=no @ {*}'],
   },
   'parking:condition:{SIDE}=ticket': {
-    newTags: ['parking:{SIDE}:access=yes', 'parking:{SIDE}:fee=yes'],
+    newTags: ['parking:{SIDE}:fee=yes'],
   },
   'parking:condition:{SIDE}=disc': {
-    newTags: [
-      'parking:{SIDE}:access=yes',
-      // TODO TAGGING: note also maxstay tagging; parking:side:authentication:disc=yes is suggested to explicitly record the usage of a parking disc
-    ],
+    newTags: ['parking:{SIDE}:authentication:disc=yes'],
+    msg: 'Tagging `parking:{SIDE}:authentication:disc=yes` is proposed but not approved. You may want to remove it.',
   },
   'parking:condition:{SIDE}=residents': {
     newTags: ['parking:{SIDE}:access=private'],
-    // TODO TAGGING: note also residents/zone tagging
+    msg: 'If possible, also add `parking:{SIDE}:zone=*`.',
   },
   'parking:condition:{SIDE}=ticket;residents': {
-    newTags: ['parking:{SIDE}:access=yes', 'parking:{SIDE}:fee=yes'],
-    // TODO TAGGING: note also residents/zone tagging
+    newTags: ['parking:{SIDE}:fee=yes'],
+    msg: 'If possible, also add `parking:{SIDE}:zone=*`.',
   },
   'parking:condition:{SIDE}=residents;ticket': {
-    // same as above, just the other key kombination
-    newTags: ['parking:{SIDE}:access=yes', 'parking:{SIDE}:fee=yes'],
-    // TODO TAGGING: note also residents/zone tagging
+    // Same as above
+    newTags: ['parking:{SIDE}:fee=yes'],
+    msg: 'If possible, also add `parking:{SIDE}:zone=*`.',
   },
   'parking:condition:{SIDE}=customers': {
     newTags: ['parking:{SIDE}:access=customers'],
@@ -119,6 +118,9 @@ export const transposeTemplate: TransposeTagsObject = {
   'parking:condition:{SIDE}=no_parking': {
     newTags: ['parking:{SIDE}:restriction=no_parking'],
   },
+  'parking:condition:{SIDE}:conditional=no_parking @ ({*})': {
+    newTags: ['parking:{SIDE}:restriction:conditional=no_parking @ ({*})'],
+  },
   'parking:condition:{SIDE}=no_standing': {
     newTags: ['parking:{SIDE}:restriction=no_standing'],
   },
@@ -131,4 +133,5 @@ export const transposeTemplate: TransposeTagsObject = {
   },
   // TODO TAGGING: parking:condition:side:maxstay	...	parking:side:maxstay	...
   // TODO TAGGING: parking:condition:side:residents	...	parking:side:zone	...
+  // TODO surface, lit
 }
