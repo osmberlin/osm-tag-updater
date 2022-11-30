@@ -14,9 +14,15 @@ https://osmberlin.github.io/osm-tag-updater/
 
 This is a plain Typescript React App using Vite.
 
+- Vite for development and build
 - Vitest for tests
 - Tailwind CSS, Tailwind UI, Headless UI and Heroicon for styling
 - Prettier, ESLint, Editorconfig for code formatting
+- Tanstack Query for fetching https://tanstack.com/query/v4
+- react hook form for Forms
+  - General TS Docs https://react-hook-form.com/get-started#TypeScript
+  - Validation example https://github.com/react-hook-form/react-hook-form/blob/master/examples/V7/validationOnFieldChange.tsx
+  - useFieldArray for the dynamic field list https://react-hook-form.com/api/usefieldarray
 
 # OSM Schema
 
@@ -45,7 +51,7 @@ Separate: Editor => Find ways again => Update tags there
 
 - WIP – The tool can be opened with a OSM ID and transposes those
 - Mappers can then open iD / JOSM from there
-- Now we could use this tools URL in a MapRoulette challenge as primary editor. 
+- Now we could use this tools URL in a MapRoulette challenge as primary editor.
 
 _Workflow:_
 
