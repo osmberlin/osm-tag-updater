@@ -8,6 +8,7 @@ export const transpose = (tags: TagsStringArray) => {
   const inputTags = tags
     .filter(Boolean)
     .map((t) => t.replaceAll('	', ''))
+    .map((t) => t.replaceAll('$side', 'left'))
   const ignoredTags: TagsStringArray = inputTags.filter(
     (t) => !t.startsWith('parking:')
   )
