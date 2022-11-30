@@ -1,7 +1,7 @@
 export type NewTagsObject = {
+  /** @desc: Specify the comparison mode. 'key' will implicitly preserve the original value. */
+  compare: 'tag' | 'key' | 'regex'
   newTags: string[]
-  /** @desc: If the value of the given key should be copied to the newTag */
-  keepValue?: true
   missingField?: {
     key: string
     values?: string[]

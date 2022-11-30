@@ -59,5 +59,22 @@ export const tagsFromTemplate = (tagsTemplate: TagsNewTagsObjects) => {
     }
   })
 
-  return tagsWithSideAndType
+  const compareByTag: TagsNewTagsObjects = {}
+  const compareByKey: TagsNewTagsObjects = {}
+  const compareByRegex: TagsNewTagsObjects = {}
+  Object.entries(tagsWithSideAndType).forEach(([key, value]) => {
+    switch (value.compare) {
+      case 'tag':
+        compareByTag[key] = value
+        break
+      case 'key':
+        compareByKey[key] = value
+        break
+      case 'regex':
+        compareByRegex[key] = value
+        break
+    }
+  })
+
+  return { compareByTag, compareByKey, compareByRegex }
 }
