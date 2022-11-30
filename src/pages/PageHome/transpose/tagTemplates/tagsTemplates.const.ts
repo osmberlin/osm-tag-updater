@@ -25,7 +25,10 @@ export const tagsTemplates: TagsNewTagsObjects = {
   },
   'parking:lane:{SIDE}=marked': {
     compare: 'tag',
-    newTags: ['parking:{SIDE}:markings=yes'],
+    newTags: [
+      'parking:{SIDE}:markings=yes',
+      'fixme=Please provide the orientation of parked cars with parking:{SIDE}:orientation=parallel|diagonal|perpendicular',
+    ],
     missingField: {
       key: 'parking:{SIDE}:orientation',
       values: ['parallel', 'diagonal', 'perpendicular'],
@@ -82,7 +85,9 @@ export const tagsTemplates: TagsNewTagsObjects = {
   },
   'parking:lane:{SIDE}:{TYPE}=painted_area_only': {
     compare: 'tag',
-    newTags: ['parking:{SIDE}'],
+    newTags: [
+      'fixme=Please provide the position of th eparked cars with parking:{SIDE}=on_street|street_side|etc.',
+    ],
     missingField: {
       key: 'parking:{SIDE}',
       values: ['on_street', 'half_on_kerb', 'on_kerb', 'street_side', 'lay_by'],

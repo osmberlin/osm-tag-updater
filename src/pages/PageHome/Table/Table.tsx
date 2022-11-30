@@ -21,6 +21,7 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
     register,
     control,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm<FormValues>({
@@ -79,6 +80,7 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
             {fields.map((field, index) => {
               const secondOldTag = oldTagStore === field.oldTag // Styling
               oldTagStore = field.oldTag
+              const newTagObject = newTagObjects[field.oldTag]
 
               return (
                 <tr key={field.id} className="border-b hover:bg-purple-50">
@@ -104,8 +106,31 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                         }
                       )}
                     />
+                    {field.newTag.startsWith('fixme=') &&
+                      newTagObject.missingField && (
+                        <div className="prose prose-sm rounded bg-fuchsia-200 py-1 px-2 leading-tight">
+                          {newTagObject.missingField.msg}
+                          <ul className="marker:text-white">
+                            {newTagObject.missingField?.values?.map((v) => {
+                              const newValue = `${newTagObject.missingField?.key}=${v}`
+                              return (
+                                <li
+                                  key={v}
+                                  className="font-mono underline hover:underline-offset-2"
+                                  role="button"
+                                  onClick={() =>
+                                    setValue(`tags.${index}.newTag`, newValue)
+                                  }
+                                >
+                                  {newValue}{' '}
+                                </li>
+                              )
+                            })}
+                          </ul>
+                        </div>
+                      )}
                     <div className="text-xs text-gray-300 hover:text-gray-600">
-                      {JSON.stringify(newTagObjects[field.oldTag])}
+                      {JSON.stringify(newTagObject)}
                     </div>
                   </td>
                 </tr>
