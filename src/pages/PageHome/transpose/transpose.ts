@@ -1,6 +1,6 @@
 import { tagsFromTemplate } from './tagTemplates/tagsFromTemplate'
 import { tagsTemplates } from './tagTemplates/tagsTemplates.const'
-import { TagsTemplates } from './tagTemplates/types'
+import { TagsNewTagsObjects } from './tagTemplates/types'
 import { TagsStringArray } from './types'
 
 export const transpose = (tags: TagsStringArray) => {
@@ -15,13 +15,12 @@ export const transpose = (tags: TagsStringArray) => {
   const transposedTags = tagsFromTemplate(tagsTemplates)
 
   const unrecognizedTags: TagsStringArray = []
-  const newTags: TagsTemplates = {}
+  const newTags: TagsNewTagsObjects = {}
   candidateTags.forEach((tag) => {
-    const newTagTEMP = transposedTags[tag]
-    if (!newTagTEMP) {
+    if (!transposedTags[tag]) {
       unrecognizedTags.push(tag)
     } else {
-      newTags[tag] = newTagTEMP
+      newTags[tag] = transposedTags[tag]
     }
   })
 

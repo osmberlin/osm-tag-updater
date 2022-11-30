@@ -1,8 +1,8 @@
-import { TagsTemplates } from './types'
+import { TagsNewTagsObjects } from './types'
 
 // Source: https://wiki.openstreetmap.org/wiki/Proposed_features/street_parking_revision#Dictionary:_old_vs._new_tags
 // Source: https://ethercalc.net/kmmtdv6273sy
-export const tagsTemplates: TagsTemplates = {
+export const tagsTemplates: TagsNewTagsObjects = {
   'parking:lane:{SIDE}=yes': {
     newTags: ['parking:{SIDE}=yes'],
   },

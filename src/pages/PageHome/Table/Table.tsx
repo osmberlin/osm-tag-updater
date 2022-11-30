@@ -1,10 +1,10 @@
 import { clsx } from 'clsx'
 import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
-import { TagsTemplates } from '../transpose'
+import { TagsNewTagsObjects } from '../transpose'
 
 type Props = {
-  newTags: TagsTemplates
+  newTags: TagsNewTagsObjects
   setOutputTags: (tags: string[]) => void
 }
 

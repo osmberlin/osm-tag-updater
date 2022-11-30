@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest'
 import { tagsFromTemplate } from './tagsFromTemplate'
-import { TagsTemplates } from './types'
+import { TagsNewTagsObjects } from './types'
 
 describe('tagsFromTemplate()', () => {
   describe('handle {SIDE}', () => {
     test('one key, one value', () => {
-      const input: TagsTemplates = {
+      const input: TagsNewTagsObjects = {
         'parking:lane:{SIDE}=yes': {
           newTags: ['parking:{SIDE}=yes'],
         },
@@ -28,7 +28,7 @@ describe('tagsFromTemplate()', () => {
     })
 
     test('one key, one value, with missingTag key', () => {
-      const input: TagsTemplates = {
+      const input: TagsNewTagsObjects = {
         'parking:lane:{SIDE}=marked': {
           newTags: ['parking:{SIDE}:markings=yes'],
           missingField: {
@@ -71,7 +71,7 @@ describe('tagsFromTemplate()', () => {
     })
 
     test('two keys, two values', () => {
-      const input: TagsTemplates = {
+      const input: TagsNewTagsObjects = {
         'parking:lane:{SIDE}=no_stopping': {
           newTags: ['parking:{SIDE}=no', 'parking:{SIDE}:stopping=no'],
         },
@@ -120,7 +120,7 @@ describe('tagsFromTemplate()', () => {
 
   describe('handle {TYPE}', () => {
     test('Works with {TYPE} (and {SIDE})', () => {
-      const input: TagsTemplates = {
+      const input: TagsNewTagsObjects = {
         'parking:lane:{SIDE}:{TYPE}=on_street': {
           newTags: ['parking:{SIDE}=lane'],
         },

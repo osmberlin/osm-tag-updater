@@ -1,4 +1,4 @@
-export type TagsTemplateNewTagsObject = {
+export type NewTagsObject = {
   newTags: string[]
   /** @desc: If the value of the given key should be copied to the newTag */
   keepValue?: true
@@ -10,6 +10,6 @@ export type TagsTemplateNewTagsObject = {
   msg?: string
 }
 
-export type TagsTemplates = {
-  [key: string]: TagsTemplateNewTagsObject
+export type TagsNewTagsObjects = {
+  [key: string]: NewTagsObject
 }

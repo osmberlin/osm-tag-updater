@@ -1,4 +1,4 @@
-import { TagsTemplates } from './types'
+import { TagsNewTagsObjects } from './types'
 
 const sideTemplate = '{SIDE}'
 const sides = ['left', 'right', 'both']
@@ -12,9 +12,9 @@ const hasType = (tag: string) => {
   return tag.includes(typeTemplate)
 }
 
-export const tagsFromTemplate = (tagsTemplate: TagsTemplates) => {
+export const tagsFromTemplate = (tagsTemplate: TagsNewTagsObjects) => {
   // First run for SIDE
-  const tagsWithSide: TagsTemplates = {}
+  const tagsWithSide: TagsNewTagsObjects = {}
   Object.entries(tagsTemplate).forEach(([oldTagTempl, newTagTempl]) => {
     const { newTags, missingField } = newTagTempl
     const missingFieldKey = missingField?.key
@@ -48,7 +48,7 @@ export const tagsFromTemplate = (tagsTemplate: TagsTemplates) => {
   })
 
   // Second run for TYPE
-  const tagsWithSideAndType: TagsTemplates = tagsWithSide
+  const tagsWithSideAndType: TagsNewTagsObjects = tagsWithSide
   Object.entries(tagsWithSideAndType).forEach(([oldTagTempl, newTagTempl]) => {
     if (hasType(oldTagTempl)) {
       delete tagsWithSide[oldTagTempl]
