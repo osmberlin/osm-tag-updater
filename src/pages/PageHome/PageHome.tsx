@@ -17,17 +17,17 @@ export const PageHome: React.FC = () => {
 
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
   const [unrecognizedTags, setUnrecognizedTags] = useState<TagsStringArray>([])
-  const [newTags, setNewTags] = useState<TagsNewTagsObjects>({})
+  const [newTagObjects, setNewTagObjects] = useState<TagsNewTagsObjects>({})
   const [outputTags, setOutputTags] = useState<string[]>([])
   const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
 
   const handleUpdate = (tags: TagsStringArray) => {
-    const { ignoredTags, unrecognizedTags, newTags } = transpose(tags)
-    console.log({ ignoredTags, unrecognizedTags, newTags })
+    const { ignoredTags, unrecognizedTags, newTagObjects } = transpose(tags)
+    console.log({ ignoredTags, unrecognizedTags, newTagObjects })
 
     setIgnoredTags(ignoredTags)
     setUnrecognizedTags(unrecognizedTags)
-    setNewTags(newTags)
+    setNewTagObjects(newTagObjects)
   }
 
   useEffect(() => {
@@ -99,7 +99,7 @@ export const PageHome: React.FC = () => {
       </section>
 
       <section className="mt-5">
-        <Table newTags={newTags} setOutputTags={setOutputTags} />
+        <Table newTagObjects={newTagObjects} setOutputTags={setOutputTags} />
 
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>

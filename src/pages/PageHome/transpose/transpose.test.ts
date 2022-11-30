@@ -10,7 +10,7 @@ describe('transpose()', () => {
     // console.log('result', JSON.stringify(result, undefined, 2))
     const compare = {
       ignoredTags: [],
-      newTags: {},
+      newTagObjects: {},
       unrecognizedTags: [],
     }
     expect(result).toMatchObject(compare)

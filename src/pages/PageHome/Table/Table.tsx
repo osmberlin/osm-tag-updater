@@ -4,7 +4,7 @@ import { useFieldArray, useForm } from 'react-hook-form'
 import { TagsNewTagsObjects } from '../transpose'
 
 type Props = {
-  newTags: TagsNewTagsObjects
+  newTagObjects: TagsNewTagsObjects
   setOutputTags: (tags: string[]) => void
 }
 
@@ -15,7 +15,7 @@ type FormValues = {
   }[]
 }
 
-export const Table: React.FC<Props> = ({ newTags, setOutputTags }) => {
+export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
   // Docs https://react-hook-form.com/api/usefieldarray/
   const {
     register,
@@ -40,7 +40,7 @@ export const Table: React.FC<Props> = ({ newTags, setOutputTags }) => {
 
   const populateAndCleanupForm = () => {
     const initialOutputTags: string[] = []
-    Object.entries(newTags).map(([oldTag, newTagObject]) => {
+    Object.entries(newTagObjects).map(([oldTag, newTagObject]) => {
       newTagObject.newTags.map((newTag) => {
         append({ oldTag, newTag })
         initialOutputTags.push(newTag)
@@ -57,7 +57,7 @@ export const Table: React.FC<Props> = ({ newTags, setOutputTags }) => {
   useEffect(() => {
     reset()
     populateAndCleanupForm()
-  }, [newTags])
+  }, [newTagObjects])
 
   let oldTagStore = '' // Styling
 
@@ -105,7 +105,7 @@ export const Table: React.FC<Props> = ({ newTags, setOutputTags }) => {
                       )}
                     />
                     <div className="text-xs text-gray-300 hover:text-gray-600">
-                      {JSON.stringify(newTags[field.oldTag])}
+                      {JSON.stringify(newTagObjects[field.oldTag])}
                     </div>
                   </td>
                 </tr>
