@@ -5,14 +5,23 @@ import { TagsStringArray } from './types'
 import { count, getKey, getValue } from './utils'
 
 export const transpose = (tags: TagsStringArray) => {
-  const inputTags = tags
+  const cleanInputTags = tags
     .filter(Boolean)
-    .map((t) => t.replaceAll('	', ''))
-    .map((t) => t.replaceAll('$side', 'left'))
-  const ignoredTags: TagsStringArray = inputTags.filter(
+    .map((t) =>
+      t
+        .split('=')
+        .map((p) => p.trim())
+        .join('=')
+    ) // trim spaces, but also around the "="
+    .map((t) => t.replaceAll('$side', 'left')) // those changes are just for easier testing
+    .map((t) => t.replaceAll('{SIDE}', 'left'))
+    .map((t) => t.replaceAll('$type', 'parallel'))
+    .map((t) => t.replaceAll('{TYPE}', 'parallel'))
+
+  const ignoredTags: TagsStringArray = cleanInputTags.filter(
     (t) => !t.startsWith('parking:')
   )
-  const candidateTags: TagsStringArray = inputTags.filter((t) =>
+  const candidateTags: TagsStringArray = cleanInputTags.filter((t) =>
     t.startsWith('parking:')
   )
 

@@ -16,7 +16,7 @@ describe('transpose()', () => {
   })
 
   test('cleanup tabs', () => {
-    const input: TagsStringArray = ['parking:lane:left	=	separate']
+    const input: TagsStringArray = [' parking:lane:left	=	separate ']
     const result = transpose(input)
 
     const compare = {
