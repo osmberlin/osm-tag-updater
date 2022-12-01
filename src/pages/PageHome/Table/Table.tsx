@@ -114,21 +114,23 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                     {field.newTag.startsWith('fixme=') &&
                       newTagObject.missingField && (
                         <div className="prose prose-sm rounded bg-orange-200 py-1 px-2 leading-tight">
+                          {/* Test this with `parking:lane:{SIDE}=marked` */}
                           {newTagObject.missingField.msg}
                           <ul className="marker:text-white">
                             {newTagObject.missingField?.values?.map((v) => {
                               const newValue = `${newTagObject.missingField?.key}=${v}`
                               return (
-                                <li
-                                  key={v}
-                                  className="font-mono underline hover:underline-offset-2"
-                                  role="button"
-                                  onClick={() => {
-                                    setValue(`tags.${index}.newTag`, newValue)
-                                    onChange()
-                                  }}
-                                >
-                                  {newValue}{' '}
+                                <li key={v}>
+                                  <button
+                                    type="button"
+                                    className="my-0 font-mono underline hover:underline-offset-2"
+                                    onClick={() => {
+                                      setValue(`tags.${index}.newTag`, newValue)
+                                      onChange()
+                                    }}
+                                  >
+                                    {newValue}{' '}
+                                  </button>
                                 </li>
                               )
                             })}
