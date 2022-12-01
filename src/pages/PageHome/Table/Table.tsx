@@ -84,16 +84,13 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
 
               return (
                 <tr key={field.id} className="border-b hover:bg-purple-50">
-                  <th className="w-1/3 py-1 text-left align-top font-semibold">
-                    <input
-                      {...register(`tags.${index}.oldTag` as const)}
-                      readOnly
-                      tabIndex={-1}
-                      className={clsx(
-                        'w-full cursor-default bg-transparent outline-none',
-                        { 'text-gray-200': secondOldTag }
-                      )}
-                    />
+                  <th
+                    className={clsx(
+                      'w-1/3 py-1 text-left align-top font-semibold',
+                      { 'text-gray-200': secondOldTag }
+                    )}
+                  >
+                    {field.oldTag}
                   </th>
                   <td className="space-y-1 py-1 align-top">
                     <input
