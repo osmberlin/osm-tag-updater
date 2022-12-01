@@ -31,7 +31,7 @@ export const transpose = (tags: TagsStringArray) => {
   const newTagsManualCandidates: TagsStringArray = []
   const newTagObjects: TagsNewTagsObjects = {}
   candidateTags.forEach((tag) => {
-    if (count(tag, '@') > 1) {
+    if (count(tag, '@') > 1 || count(tag, '=') !== 1) {
       console.warn(
         'Found more than one @-sign in this tag. Those cases need to be handled manually.'
       )

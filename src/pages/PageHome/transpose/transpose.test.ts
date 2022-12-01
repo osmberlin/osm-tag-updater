@@ -56,6 +56,18 @@ describe('transpose()', () => {
     expect(result).toMatchObject(compare)
   })
 
+  test('handles just keys as input as `ignoredTags` to be handled manually', () => {
+    const input: TagsStringArray = ['parking:lane:foo']
+    const result = transpose(input)
+
+    const compare = {
+      ignoredTags: [],
+      newTagsManualCandidates: ['parking:lane:foo'],
+      newTagObjects: {},
+    }
+    expect(result).toMatchObject(compare)
+  })
+
   describe('compare type _tag_', () => {
     test('handles compare type tag', () => {
       const input: TagsStringArray = ['parking:lane:left=yes']
