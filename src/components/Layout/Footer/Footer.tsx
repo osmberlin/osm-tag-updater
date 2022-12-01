@@ -8,6 +8,10 @@ const navigation = {
       name: 'Imprint & Contact & Privacy Statement (German)',
       href: 'https://parkraum.osm-verkehrswende.org/contact',
     },
+    {
+      name: 'Code on Github',
+      href: 'https://github.com/osmberlin/osm-tag-updater',
+    },
   ],
 }
 
@@ -24,6 +28,8 @@ export const Footer: React.FC = () => {
               <a
                 href={item.href}
                 className="text-base text-gray-500 hover:text-gray-900"
+                target="_blank"
+                rel="noreferrer"
               >
                 {item.name}
               </a>
