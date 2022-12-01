@@ -118,9 +118,10 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                                   key={v}
                                   className="font-mono underline hover:underline-offset-2"
                                   role="button"
-                                  onClick={() =>
+                                  onClick={() => {
                                     setValue(`tags.${index}.newTag`, newValue)
-                                  }
+                                    onChange()
+                                  }}
                                 >
                                   {newValue}{' '}
                                 </li>
