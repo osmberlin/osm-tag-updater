@@ -98,13 +98,25 @@ export const tagsTemplates: TagsNewTagsObjects = {
     compare: 'key',
     newTags: ['parking:{SIDE}:capacity'],
   },
+  'parking:lane:{SIDE}:capacity:disabled': {
+    compare: 'key',
+    newTags: ['parking:{SIDE}:capacity:disabled'],
+  },
+  'parking:lane:{SIDE}:surface': {
+    compare: 'key',
+    newTags: ['parking:{SIDE}:surface'],
+  },
+  'parking:lane:{SIDE}:width': {
+    compare: 'key',
+    newTags: ['parking:{SIDE}:width'],
+  },
+  'parking:lane:{SIDE}:lit': {
+    compare: 'key',
+    newTags: ['parking:{SIDE}:lit'],
+  },
   'parking:condition:{SIDE}=free': {
     compare: 'tag',
     newTags: ['parking:{SIDE}:fee=no'],
-  },
-  'parking:condition:{SIDE}:conditional=free @ {ANYTHING}': {
-    compare: 'regex',
-    newTags: ['parking:{SIDE}:fee:conditional=no @ {ANYTHING}'],
   },
   'parking:condition:{SIDE}=ticket': {
     compare: 'tag',
@@ -151,12 +163,6 @@ export const tagsTemplates: TagsNewTagsObjects = {
     compare: 'tag',
     newTags: ['parking:{SIDE}:restriction=no_parking'],
   },
-  'parking:condition:{SIDE}:conditional=no_parking @ ({ANYTHING})': {
-    compare: 'regex',
-    newTags: [
-      'parking:{SIDE}:restriction:conditional=no_parking @ ({ANYTHING})',
-    ],
-  },
   'parking:condition:{SIDE}=no_standing': {
     compare: 'tag',
     newTags: ['parking:{SIDE}:restriction=no_standing'],
@@ -169,6 +175,182 @@ export const tagsTemplates: TagsNewTagsObjects = {
     compare: 'tag',
     newTags: ['parking:{SIDE}:restriction=none'],
     msg: 'Hint: Parking restriction unspecified.',
+  },
+  'parking:condition:{SIDE}:conditional=free @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:fee:conditional=no @ {ANYTHING}'],
+  },
+  'parking:condition:{SIDE}:conditional=no_parking @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:restriction:conditional=no_parking @ {ANYTHING}'],
+  },
+  'parking:condition:{SIDE}:conditional=ticket @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:fee:conditional=yes @ {ANYTHING}'],
+  },
+  'parking:condition:{SIDE}:conditional=disc @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: [
+      'parking:{SIDE}:authentication:disc:conditional=yes @ {ANYTHING}',
+    ],
+  },
+  'parking:condition:{SIDE}:conditional=residents @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:access:conditional=private @ {ANYTHING}'],
+  },
+  'parking:condition:{SIDE}:conditional=ticket;residents @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:fee:conditional=yes @ {ANYTHING}'],
+  },
+  'parking:condition:{SIDE}:conditional=residents;ticket @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:fee:conditional=yes @ {ANYTHING}'],
+  },
+  'parking:condition:{SIDE}:conditional=customers @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:access:conditional=customers @ {ANYTHING}'],
+  },
+  'parking:condition:{SIDE}:conditional=private @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:access:conditional=private @ {ANYTHING}'],
+  },
+  'parking:condition:{SIDE}:conditional=disabled @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: [
+      'parking:{SIDE}:access:conditional=no @ {ANYTHING}',
+      'parking:{SIDE}:disabled:conditional=designated @ {ANYTHING}',
+    ],
+  },
+  'parking:condition:{SIDE}:conditional=loading @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: [
+      'parking:{SIDE}:restriction:conditional=loading_only @ {ANYTHING}',
+    ],
+  },
+  'parking:condition:{SIDE}:conditional=no_standing @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: [
+      'parking:{SIDE}:restriction:conditional=no_standing @ {ANYTHING}',
+    ],
+  },
+  'parking:condition:{SIDE}:conditional=no_stopping @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: [
+      'parking:{SIDE}:restriction:conditional=no_stopping @ {ANYTHING}',
+    ],
+  },
+  'parking:condition:{SIDE}:conditional=no @ {ANYTHING}': {
+    compare: 'regex',
+    newTags: ['parking:{SIDE}:restriction:conditional=none @ {ANYTHING}'],
+  },
+  'parking:lane:{SIDE}:maxstay': {
+    compare: 'key',
+    newTags: ['parking:{SIDE}:maxstay'],
+  },
+  'parking:lane:{SIDE}:maxstay:conditional': {
+    compare: 'key',
+    newTags: ['parking:{SIDE}:maxstay:conditional'],
+    msg: 'This tag has a complex value; please check it manually. It might be, that because of the value tag has to be updated differently. (Ususually this script handles key and values, but in this case only the key was analysed)',
+  },
+  'parking:condition:{SIDE}:residents': {
+    compare: 'key',
+    newTags: ['parking:{SIDE}:zone'],
+    msg: 'Please double check this tag. The transponation from old to new schema was done by looking at the key only.',
+  },
+  'parking:condition:either_side_only=yes': {
+    compare: 'tag',
+    newTags: ['parking:both:staggered=yes'],
+  },
+  'parking:condition:either_side_only=no': {
+    compare: 'tag',
+    newTags: ['parking:both:staggered=no'],
+  },
+  'parking:lane:{SIDE}:condition=free': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:fee=no'],
+  },
+  'parking:lane:{SIDE}:condition=ticket': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:fee=yes'],
+  },
+  'parking:lane=parallel': {
+    compare: 'tag',
+    newTags: ['parking:both:orientation=parallel'],
+  },
+  'parking:lane=diagonal': {
+    compare: 'tag',
+    newTags: ['parking:both:orientation=diagonal'],
+  },
+  'parking:lane=perpendicular': {
+    compare: 'tag',
+    newTags: ['parking:both:orientation=perpendicular'],
+  },
+  'parking:lane=left': {
+    compare: 'tag',
+    newTags: ['parking:left=yes', 'parking:right=no'],
+    msg: 'Please double check if this is right. The input tagging is uncommon.',
+  },
+  'parking:lane=right': {
+    compare: 'tag',
+    newTags: ['parking:right=yes', 'parking:left=no'],
+    msg: 'Please double check if this is right. The input tagging is uncommon.',
+  },
+  'parking:lane=both': {
+    compare: 'tag',
+    newTags: ['parking:both=yes'],
+  },
+  'parking:lane=yes': {
+    compare: 'tag',
+    newTags: ['parking:both=yes'],
+    msg: 'Please double check if this is right. The input tagging is uncommon.',
+  },
+  'parking:lane=no': {
+    compare: 'tag',
+    newTags: ['parking:both=no'],
+  },
+  'parking:lane=none': {
+    compare: 'tag',
+    newTags: ['parking:both=no'],
+  },
+  'parking:lane=no_parking': {
+    compare: 'tag',
+    newTags: ['parking:both=no', 'parking:both:restriction=no_parking'],
+  },
+  'parking:lane=no_stopping': {
+    compare: 'tag',
+    newTags: ['parking:both=no', 'parking:both:restriction=no_stopping'],
+  },
+  'parking:lane=on_street': {
+    compare: 'tag',
+    newTags: ['parking:both=lane'],
+  },
+  'parking:lane=half_on_kerb': {
+    compare: 'tag',
+    newTags: ['parking:both=half_on_kerb'],
+  },
+  'parking:lane=on_kerb': {
+    compare: 'tag',
+    newTags: ['parking:both=on_kerb'],
+  },
+  'parking:lane=street_side': {
+    compare: 'tag',
+    newTags: ['parking:both=street_side'],
+  },
+  'parking:lane=marked': {
+    compare: 'tag',
+    newTags: ['parking:both=yes', 'parking:both:markings=yes'],
+  },
+  'parking:lane=separate': {
+    compare: 'tag',
+    newTags: ['parking:both=separate'],
+  },
+  'parking:fee=yes': {
+    compare: 'tag',
+    newTags: ['parking:both:fee=yes'],
+  },
+  'parking:fee=no': {
+    compare: 'tag',
+    newTags: ['parking:both:fee=no'],
   },
   // TODO TAGGING: parking:condition:side:maxstay	...	parking:side:maxstay	...
   // TODO TAGGING: parking:condition:side:residents	...	parking:side:zone	...
