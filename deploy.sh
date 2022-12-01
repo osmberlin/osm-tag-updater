@@ -35,4 +35,7 @@ git commit -m 'deploy'
 # https://osmberlin.github.io/osm-tag-updater/
 git push -f git@github.com:osmberlin/osm-tag-updater.git main:gh-pages
 
+open https://osmberlin.github.io/osm-tag-updater/
+open https://github.com/osmberlin/osm-tag-updater/actions
+
 cd -
