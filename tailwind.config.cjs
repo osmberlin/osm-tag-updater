@@ -6,4 +6,11 @@ module.exports = {
     extend: {},
   },
   plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
+  // Docs https://tailwindcss.com/docs/configuration#core-plugins
+  corePlugins: {
+    opacity: false,
+    borderOpacity: false,
+    ringOpacity: false,
+    textOpacity: false,
+  },
 }
