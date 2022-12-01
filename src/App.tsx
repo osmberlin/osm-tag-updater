@@ -1,3 +1,4 @@
+import { Layout } from '@components/Layout'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import './index.css'
 import { PageHome } from './pages'
@@ -15,7 +16,9 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <PageHome />
+      <Layout>
+        <PageHome />
+      </Layout>
     </QueryClientProvider>
   )
 }

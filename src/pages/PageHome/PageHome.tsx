@@ -51,11 +51,7 @@ export const PageHome: React.FC = () => {
   }
 
   return (
-    <div className="p-10">
-      <h1 className="mb-5 text-3xl font-thin">
-        OSM Parking Lane Tag Updater{' '}
-        <small className="text-xs">{APP_VERSION}</small>
-      </h1>
+    <>
       <section>
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>
@@ -125,6 +121,6 @@ export const PageHome: React.FC = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   )
 }
