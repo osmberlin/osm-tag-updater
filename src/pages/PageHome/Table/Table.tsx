@@ -113,7 +113,7 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                     )}
                     {field.newTag.startsWith('fixme=') &&
                       newTagObject.missingField && (
-                        <div className="prose prose-sm rounded bg-fuchsia-200 py-1 px-2 leading-tight">
+                        <div className="prose prose-sm rounded bg-orange-200 py-1 px-2 leading-tight">
                           {newTagObject.missingField.msg}
                           <ul className="marker:text-white">
                             {newTagObject.missingField?.values?.map((v) => {
