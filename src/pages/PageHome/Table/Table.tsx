@@ -100,7 +100,7 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                       placeholder="name"
                       {...register(`tags.${index}.newTag` as const)}
                       className={clsx(
-                        'block w-full rounded-sm border bg-yellow-50 px-1 py-0.5',
+                        'block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 px-3 py-2 focus:border-red-500 focus:ring-red-500 sm:text-sm',
                         {
                           'text-red-500': errors?.tags?.[index]?.newTag,
                         }

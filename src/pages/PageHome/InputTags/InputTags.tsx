@@ -25,7 +25,7 @@ export const InputTags: React.FC<Props> = ({ inputTags, onSubmit }) => {
     <form onSubmit={innerOnSubmit}>
       <textarea
         {...register('tags', { required: true })}
-        className="h-40 w-full resize rounded border bg-gray-50 font-mono text-sm"
+        className="block h-40 w-full resize rounded-md border-gray-300 font-mono text-sm shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
         defaultValue={inputTags?.join('\n')}
       />
       {errors.tags && (
