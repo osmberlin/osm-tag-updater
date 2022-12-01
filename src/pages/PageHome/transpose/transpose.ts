@@ -54,7 +54,9 @@ export const transpose = (tags: TagsStringArray) => {
         console.log('x', { match, value, newKeyObject })
         newTagObjects[tag] = {
           ...newKeyObject,
-          newTags: [newKeyObject.newTags[0].replace('{ANYTHING}', value)],
+          newTags: [
+            ...newKeyObject.newTags.map((t) => t.replace('{ANYTHING}', value)),
+          ],
         }
       }
     })

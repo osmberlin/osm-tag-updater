@@ -91,15 +91,18 @@ describe('transpose()', () => {
   describe('compare type _regex_', () => {
     test('handles compare type regex, preserve value', () => {
       const input: TagsStringArray = [
-        'parking:condition:left:conditional=free @ (Mo-Fr 08:00-18:00)',
+        'parking:condition:left:conditional=disabled @ (Mo-Fr 08:00-18:00)',
       ]
       const result = transpose(input)
 
       console.log('result', JSON.stringify(result, undefined, 2))
       const compare = {
-        'parking:condition:left:conditional=free @ (Mo-Fr 08:00-18:00)': {
+        'parking:condition:left:conditional=disabled @ (Mo-Fr 08:00-18:00)': {
           compare: 'regex',
-          newTags: ['parking:left:fee:conditional=no @ (Mo-Fr 08:00-18:00)'],
+          newTags: [
+            'parking:left:access:conditional=no @ (Mo-Fr 08:00-18:00)',
+            'parking:left:disabled:conditional=designated @ (Mo-Fr 08:00-18:00)',
+          ],
         },
       }
       expect(result.newTagObjects).toMatchObject(compare)
