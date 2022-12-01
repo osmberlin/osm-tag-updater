@@ -21,3 +21,14 @@ Bspw. 2x fixme.
 # Missing field
 
 parking:lane:$side = marked
+
+# Final checks…
+
+if parking:lane:$side:$type unspecified
+(but parking:lane:$side specified)
+then parking:$side = yes
+AKA position unspecified
+
+# Check age of way
+
+Add a warning if updated at of way is older than 2 years
