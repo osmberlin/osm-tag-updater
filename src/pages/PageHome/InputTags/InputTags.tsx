@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { useForm } from 'react-hook-form'
 
 type Props = {
@@ -17,49 +17,23 @@ export const InputTags: React.FC<Props> = ({ inputTags, onSubmit }) => {
     formState: { errors },
   } = useForm<FormData>()
 
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
-  const { ref, ...rest } = register('tags', { required: true })
-
   const innerOnSubmit = handleSubmit((data: FormData) => {
     onSubmit(data.tags.split('\n'))
   })
 
-  // Allow submitting the form with cmd+enter
-  // Docs Topic Call form submit remotely:
-  //    https://github.com/react-hook-form/react-hook-form/blob/master/examples/V7/remoteTriggerFormSubmit.tsx
-  //    However, I had to use the solution here where we don't call handleSubmit(innerOnSubmit); which did nothing
-  // Docs Topic Ref:
-  //    https://react-hook-form.com/faqs#Howtosharerefusage
-  // Tutorial Keyboard listender:
-  //    https://www.peterbe.com/plog/command-enter-to-submit-form-focus-textarea-react
-  // Thanks at https://github.com/react-hook-form/react-hook-form/discussions/9485
-  useEffect(() => {
-    if (!textareaRef.current) return
-
-    const listener = (event: KeyboardEvent) => {
-      if (event.key === 'Enter' && event.metaKey) {
-        innerOnSubmit()
-      }
+  // Enable cmd+enter
+  // Thanks for the help at https://github.com/react-hook-form/react-hook-form/discussions/9485
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.metaKey && event.key === 'Enter') {
+      innerOnSubmit()
     }
-    textareaRef.current.addEventListener('keydown', listener)
-
-    return () => {
-      if (textareaRef.current) {
-        textareaRef.current.removeEventListener('keydown', listener)
-      }
-    }
-  }, [textareaRef.current, innerOnSubmit])
-
-  console.log({ textareaRef })
+  }
 
   return (
     <form onSubmit={innerOnSubmit}>
       <textarea
-        {...rest}
-        ref={(element) => {
-          ref(element)
-          textareaRef.current = element
-        }}
+        {...register('tags')}
+        onKeyDown={handleKeyDown}
         className="block h-40 w-full resize rounded-md border-gray-300 font-mono text-sm shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
         defaultValue={inputTags?.join('\n')}
         required
