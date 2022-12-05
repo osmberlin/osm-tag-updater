@@ -243,11 +243,11 @@ export const tagsTemplates: TagsNewTagsObjects = {
     compare: 'regex',
     newTags: ['parking:{SIDE}:restriction:conditional=none @ {ANYTHING}'],
   },
-  'parking:lane:{SIDE}:maxstay': {
+  'parking:condition:{SIDE}:maxstay': {
     compare: 'key',
     newTags: ['parking:{SIDE}:maxstay'],
   },
-  'parking:lane:{SIDE}:maxstay:conditional': {
+  'parking:condition:{SIDE}:maxstay:conditional': {
     compare: 'key',
     newTags: ['parking:{SIDE}:maxstay:conditional'],
     msg: 'This tag has a complex value; please check it manually. It might be, that because of the value tag has to be updated differently. (Ususually this script handles key and values, but in this case only the key was analysed)',
