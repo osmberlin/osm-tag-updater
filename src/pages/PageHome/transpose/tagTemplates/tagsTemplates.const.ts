@@ -243,6 +243,54 @@ export const tagsTemplates: TagsNewTagsObjects = {
     compare: 'regex',
     newTags: ['parking:{SIDE}:restriction:conditional=none @ {ANYTHING}'],
   },
+  'parking:condition:{SIDE}:vehicles=motorcar': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcar=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=motorcycle': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcycle=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=goods': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:goods=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=hgv': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:hgv=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=hgv_articulated': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:hgv_articulated=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=bus': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:bus=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=taxi': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:taxi=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=emergency': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:emergency=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=car': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcar=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=moped;motorcar;motorcycle': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcar=designated', 'parking:{SIDE}:motorcycle=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=motorcar;motorcycle': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcar=designated', 'parking:{SIDE}:motorcycle=designated'],
+  },
+  'parking:condition:{SIDE}:vehicles=motorcar;goods': {
+    compare: 'tag',
+    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcar=designated', 'parking:{SIDE}:goods=designated'],
+  },
   'parking:condition:{SIDE}:maxstay': {
     compare: 'key',
     newTags: ['parking:{SIDE}:maxstay'],
@@ -352,7 +400,4 @@ export const tagsTemplates: TagsNewTagsObjects = {
     compare: 'tag',
     newTags: ['parking:both:fee=no'],
   },
-  // TODO TAGGING: parking:condition:side:maxstay	...	parking:side:maxstay	...
-  // TODO TAGGING: parking:condition:side:residents	...	parking:side:zone	...
-  // TODO surface, lit
 }
