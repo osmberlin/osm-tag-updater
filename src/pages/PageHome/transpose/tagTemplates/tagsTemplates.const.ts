@@ -249,7 +249,10 @@ export const tagsTemplates: TagsNewTagsObjects = {
   },
   'parking:condition:{SIDE}:vehicles=motorcycle': {
     compare: 'tag',
-    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcycle=designated'],
+    newTags: [
+      'parking:{SIDE}:access=no',
+      'parking:{SIDE}:motorcycle=designated',
+    ],
   },
   'parking:condition:{SIDE}:vehicles=goods': {
     compare: 'tag',
@@ -261,7 +264,10 @@ export const tagsTemplates: TagsNewTagsObjects = {
   },
   'parking:condition:{SIDE}:vehicles=hgv_articulated': {
     compare: 'tag',
-    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:hgv_articulated=designated'],
+    newTags: [
+      'parking:{SIDE}:access=no',
+      'parking:{SIDE}:hgv_articulated=designated',
+    ],
   },
   'parking:condition:{SIDE}:vehicles=bus': {
     compare: 'tag',
@@ -273,7 +279,10 @@ export const tagsTemplates: TagsNewTagsObjects = {
   },
   'parking:condition:{SIDE}:vehicles=emergency': {
     compare: 'tag',
-    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:emergency=designated'],
+    newTags: [
+      'parking:{SIDE}:access=no',
+      'parking:{SIDE}:emergency=designated',
+    ],
   },
   'parking:condition:{SIDE}:vehicles=car': {
     compare: 'tag',
@@ -281,15 +290,27 @@ export const tagsTemplates: TagsNewTagsObjects = {
   },
   'parking:condition:{SIDE}:vehicles=moped;motorcar;motorcycle': {
     compare: 'tag',
-    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcar=designated', 'parking:{SIDE}:motorcycle=designated'],
+    newTags: [
+      'parking:{SIDE}:access=no',
+      'parking:{SIDE}:motorcar=designated',
+      'parking:{SIDE}:motorcycle=designated',
+    ],
   },
   'parking:condition:{SIDE}:vehicles=motorcar;motorcycle': {
     compare: 'tag',
-    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcar=designated', 'parking:{SIDE}:motorcycle=designated'],
+    newTags: [
+      'parking:{SIDE}:access=no',
+      'parking:{SIDE}:motorcar=designated',
+      'parking:{SIDE}:motorcycle=designated',
+    ],
   },
   'parking:condition:{SIDE}:vehicles=motorcar;goods': {
     compare: 'tag',
-    newTags: ['parking:{SIDE}:access=no', 'parking:{SIDE}:motorcar=designated', 'parking:{SIDE}:goods=designated'],
+    newTags: [
+      'parking:{SIDE}:access=no',
+      'parking:{SIDE}:motorcar=designated',
+      'parking:{SIDE}:goods=designated',
+    ],
   },
   'parking:condition:{SIDE}:maxstay': {
     compare: 'key',
