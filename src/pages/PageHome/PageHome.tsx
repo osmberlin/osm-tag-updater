@@ -1,3 +1,4 @@
+import { ExternalLink } from '@components/Link'
 import { useEffect, useState } from 'react'
 import { CopyButton } from './CopyButton'
 import { InputOsmId } from './InputOsmId'
@@ -5,7 +6,11 @@ import { InputTags } from './InputTags'
 import { Table } from './Table'
 import { TagsNewTagsObjects, TagsStringArray, transpose } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
-import { tagsObjectToStringArray } from './utils'
+import {
+  checkPrimaryKeyOrientation,
+  checkPrimaryKeyParking,
+  tagsObjectToStringArray,
+} from './utils'
 
 export const PageHome: React.FC = () => {
   const [osmWayId, setOsmWayId] = useState(858659630)
@@ -76,11 +81,34 @@ export const PageHome: React.FC = () => {
               readOnly
             />
             {!!ignoredTagsEdgeCases.length && (
-              <div className="mt-2 bg-orange-100 p-3">
+              <div className="prose mt-2 rounded bg-orange-200 p-3 leading-tight">
                 Please review the following tags. They include the term{' '}
                 <code>parking</code> which is a strong indication that they
                 should be handled manually:{' '}
                 <code>{ignoredTagsEdgeCases.join(', ')}</code>
+              </div>
+            )}
+            {!checkPrimaryKeyParking(outputTags) && (
+              <div className="prose mt-2 rounded bg-orange-200 p-3 leading-tight">
+                The primary key <code>parking:$side=*</code> is missing.{' '}
+                <ExternalLink
+                  href="https://wiki.openstreetmap.org/wiki/Street_parking#Quick_guide"
+                  blank
+                >
+                  Wiki-Quickguide…
+                </ExternalLink>
+              </div>
+            )}
+            {!checkPrimaryKeyOrientation(outputTags) && (
+              <div className="prose mt-2 rounded bg-orange-200 p-3 leading-tight">
+                The primary orientation key{' '}
+                <code>parking:$side:orientation=*</code> is missing.{' '}
+                <ExternalLink
+                  href="https://wiki.openstreetmap.org/wiki/Street_parking#Quick_guide"
+                  blank
+                >
+                  Wiki-Quickguide…
+                </ExternalLink>
               </div>
             )}
           </div>
