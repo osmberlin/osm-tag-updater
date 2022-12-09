@@ -11,6 +11,7 @@ import {
   checkPrimaryKeyParking,
   tagsObjectToStringArray,
 } from './utils'
+import { checkSideBothInconsistencies } from './utils/checkSideBothInconsistencies'
 import { deduplicateTags } from './utils/deduplicateTags'
 
 export const PageHome: React.FC = () => {
@@ -122,6 +123,23 @@ export const PageHome: React.FC = () => {
                 >
                   Wiki-Quickguide…
                 </ExternalLink>
+              </div>
+            )}
+            {checkSideBothInconsistencies(outputTags)?.length && (
+              <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
+                The following keys are inconsistent. Either change the{' '}
+                <code>:both</code> to <code>:left</code> <em>or</em>{' '}
+                <code>:right</code> <em>or</em> remove the sides so only{' '}
+                <code>:both</code> preserves.
+                <ul>
+                  {checkSideBothInconsistencies(outputTags).map(
+                    ([bothKey, otherKey]) => (
+                      <li key={bothKey}>
+                        <code>{bothKey}</code> and <code>{otherKey}</code>
+                      </li>
+                    )
+                  )}
+                </ul>
               </div>
             )}
           </div>
