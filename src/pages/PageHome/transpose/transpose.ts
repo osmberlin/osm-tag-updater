@@ -31,6 +31,7 @@ export const transpose = (tags: TagsStringArray) => {
   const newTagsManualCandidates: TagsStringArray = []
   const newTagObjects: TagsNewTagsObjects = {}
   candidateTags.forEach((tag) => {
+    // General checks – exit forEach if true
     if (count(tag, '@') > 1 || count(tag, '=') !== 1) {
       console.warn(
         'Found more than one @-sign in this tag. Those cases need to be handled manually.'
@@ -39,12 +40,14 @@ export const transpose = (tags: TagsStringArray) => {
       return
     }
 
+    // Compare-Type 'tag' – exit forEach if true
     const newTagObjectByTag = compareByTag[tag]
     if (newTagObjectByTag) {
       newTagObjects[tag] = newTagObjectByTag
       return
     }
 
+    // Compare-Type 'key' – exit forEach if true
     const newTagObjectByKey = compareByKey[getKey(tag)]
     if (newTagObjectByKey) {
       const value = getValue(tag)
@@ -60,7 +63,6 @@ export const transpose = (tags: TagsStringArray) => {
       const match = tag.match(regex)
       if (match) {
         const value = match[1]
-        console.log('x', { match, value, newKeyObject })
         newTagObjects[tag] = {
           ...newKeyObject,
           newTags: [
@@ -70,6 +72,7 @@ export const transpose = (tags: TagsStringArray) => {
       }
     })
 
+    // Everythign else are manual candidates
     newTagsManualCandidates.push(tag)
   })
 
