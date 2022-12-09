@@ -10,7 +10,7 @@ type Props = {
 }
 
 type FormValues = {
-  tags: {
+  tagsTable: {
     oldTag: string
     newTag: string
   }[]
@@ -27,17 +27,17 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: {
-      tags: [],
+      tagsTable: [],
     },
     mode: 'onChange',
   })
   const { fields, append } = useFieldArray<FormValues>({
-    name: 'tags',
+    name: 'tagsTable',
     control,
   })
 
   const onChange = handleSubmit((data: FormValues) => {
-    setOutputTags(data.tags.map((d) => d.newTag))
+    setOutputTags(data.tagsTable.map((d) => d.newTag))
   })
 
   const populateAndCleanupForm = () => {
@@ -88,11 +88,11 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                   <td className="space-y-1 py-1 align-top">
                     <input
                       placeholder="name"
-                      {...register(`tags.${index}.newTag` as const)}
+                      {...register(`tagsTable.${index}.newTag` as const)}
                       className={clsx(
                         'block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 px-3 py-2 focus:border-red-500 focus:ring-red-500 sm:text-sm',
                         {
-                          'text-red-500': errors?.tags?.[index]?.newTag,
+                          'text-red-500': errors?.tagsTable?.[index]?.newTag,
                         }
                       )}
                     />
@@ -119,7 +119,10 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                                     type="button"
                                     className="my-0 font-mono underline hover:underline-offset-2"
                                     onClick={() => {
-                                      setValue(`tags.${index}.newTag`, newValue)
+                                      setValue(
+                                        `tagsTable.${index}.newTag`,
+                                        newValue
+                                      )
                                       onChange()
                                     }}
                                   >
