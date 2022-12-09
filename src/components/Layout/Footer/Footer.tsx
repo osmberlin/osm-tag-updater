@@ -1,3 +1,5 @@
+import { ExternalLink } from '@components/Link'
+
 const navigation = {
   main: [
     {
@@ -25,14 +27,13 @@ export const Footer: React.FC = () => {
         >
           {navigation.main.map((item) => (
             <div key={item.name} className="px-5 py-2">
-              <a
+              <ExternalLink
                 href={item.href}
                 className="text-base text-gray-500 hover:text-gray-900"
-                target="_blank"
-                rel="noreferrer"
+                blank
               >
                 {item.name}
-              </a>
+              </ExternalLink>
             </div>
           ))}
         </nav>
