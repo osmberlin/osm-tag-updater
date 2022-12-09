@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 type Props = {
@@ -14,6 +14,7 @@ export const InputTags: React.FC<Props> = ({ tags, onSubmit }) => {
   const {
     register,
     handleSubmit,
+    setFocus,
     formState: { errors },
   } = useForm<FormData>()
 
@@ -34,6 +35,10 @@ export const InputTags: React.FC<Props> = ({ tags, onSubmit }) => {
     }
   }
 
+  useEffect(() => {
+    setFocus('inputTags', { shouldSelect: true })
+  }, [])
+
   return (
     <form onSubmit={innerOnSubmit}>
       <textarea
@@ -42,6 +47,8 @@ export const InputTags: React.FC<Props> = ({ tags, onSubmit }) => {
         className="block h-40 w-full resize rounded-md border-gray-300 font-mono text-sm shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
         defaultValue={tags?.join('\n')}
         required
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
       />
       {errors.inputTags && (
         <span className="inline-flex h-5 items-center bg-red-100 px-1 text-xs text-red-700">
