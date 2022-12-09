@@ -80,8 +80,14 @@ export const PageHome: React.FC = () => {
               value={outputTags.join('\n')}
               readOnly
             />
+            {outputTags.some((tag) => tag.startsWith('fixme=')) && (
+              <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
+                Please fix the <code>fixme=*</code> tags. Details are described
+                in the table below.
+              </div>
+            )}
             {!!ignoredTagsEdgeCases.length && (
-              <div className="prose mt-2 rounded bg-orange-200 p-3 leading-tight">
+              <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
                 Please review the following tags. They include the term{' '}
                 <code>parking</code> which is a strong indication that they
                 should be handled manually:{' '}
@@ -89,7 +95,7 @@ export const PageHome: React.FC = () => {
               </div>
             )}
             {!checkPrimaryKeyParking(outputTags) && (
-              <div className="prose mt-2 rounded bg-orange-200 p-3 leading-tight">
+              <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
                 The primary key <code>parking:$side=*</code> is missing.{' '}
                 <ExternalLink
                   href="https://wiki.openstreetmap.org/wiki/Street_parking#Quick_guide"
@@ -100,7 +106,7 @@ export const PageHome: React.FC = () => {
               </div>
             )}
             {!checkPrimaryKeyOrientation(outputTags) && (
-              <div className="prose mt-2 rounded bg-orange-200 p-3 leading-tight">
+              <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
                 The primary orientation key{' '}
                 <code>parking:$side:orientation=*</code> is missing.{' '}
                 <ExternalLink
