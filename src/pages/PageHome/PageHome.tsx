@@ -28,6 +28,7 @@ export const PageHome: React.FC = () => {
   const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
 
   const handleSetOutputTags = (tags: TagsStringArray) => {
+    tags = tags.filter(Boolean)
     tags = deduplicateTags(tags)
     tags = tags.sort((t1, t2) => t1.localeCompare(t2))
     setOutputTags(tags)
