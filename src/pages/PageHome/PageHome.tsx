@@ -11,6 +11,7 @@ import {
   checkPrimaryKeyParking,
   tagsObjectToStringArray,
 } from './utils'
+import { deduplicateTags } from './utils/deduplicateTags'
 
 export const PageHome: React.FC = () => {
   const [osmWayId, setOsmWayId] = useState(858659630)
@@ -24,6 +25,11 @@ export const PageHome: React.FC = () => {
   const [newTagObjects, setNewTagObjects] = useState<TagsNewTagsObjects>({})
   const [outputTags, setOutputTags] = useState<string[]>([])
   const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
+
+  const handleSetOutputTags = (tags: TagsStringArray) => {
+    tags = deduplicateTags(tags)
+    setOutputTags(tags)
+  }
 
   const handleUpdate = (tags: TagsStringArray) => {
     const { ignoredTags, newTagsManualCandidates, newTagObjects } =
@@ -122,7 +128,10 @@ export const PageHome: React.FC = () => {
       </section>
 
       <section className="mt-5">
-        <Table newTagObjects={newTagObjects} setOutputTags={setOutputTags} />
+        <Table
+          newTagObjects={newTagObjects}
+          setOutputTags={handleSetOutputTags}
+        />
 
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>
