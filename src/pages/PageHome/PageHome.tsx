@@ -28,6 +28,7 @@ export const PageHome: React.FC = () => {
 
   const handleSetOutputTags = (tags: TagsStringArray) => {
     tags = deduplicateTags(tags)
+    tags = tags.sort((t1, t2) => t1.localeCompare(t2))
     setOutputTags(tags)
   }
 
