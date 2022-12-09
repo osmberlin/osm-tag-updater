@@ -11,6 +11,10 @@ const navigation = {
       href: 'https://parkraum.osm-verkehrswende.org/contact',
     },
     {
+      name: 'Wiki Documentation',
+      href: 'https://wiki.openstreetmap.org/wiki/Street_parking',
+    },
+    {
       name: 'Code on Github',
       href: 'https://github.com/osmberlin/osm-tag-updater',
     },
@@ -38,7 +42,7 @@ export const Footer: React.FC = () => {
           ))}
         </nav>
         <p className="mt-8 text-center text-base text-gray-400">
-          This project is part of the OpenStreetMap Parking Space Project
+          This project is part of the OpenStreetMap Parking Space Project.
         </p>
       </div>
     </footer>
