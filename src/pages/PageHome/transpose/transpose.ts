@@ -96,9 +96,20 @@ export const transpose = (tags: TagsStringArray) => {
     }
 
     // Everythign else are manual candidates
+    // For some tags, we show a different message, see https://github.com/osmberlin/osm-tag-updater/issues/5
+    let msg = ''
+    if (
+      [':default', ':time_interval', ':2', ':3', ':4'].some((fragment) =>
+        tag.includes(fragment)
+      )
+    ) {
+      msg =
+        'The tool was not able to update this tag. Please update it manually. Some tags will split in multiple new tags. Please use the output-textarea to change those. There is [a special wiki page that will guide you to update the tags](https://wiki.openstreetmap.org/wiki/Street_parking/Translating_deprecated_default_and_time_interval_tagging).'
+    }
     newTagsManualCandidates[tag] = createTagObject(
       tag,
-      'The tool was not able to update this tag. Please update it manually. Some tags will split in multiple new tags. Please use the output-textarea to change those.'
+      msg ||
+        'The tool was not able to update this tag. Please update it manually. Some tags will split in multiple new tags. Please use the output-textarea to change those.'
     )
   })
 

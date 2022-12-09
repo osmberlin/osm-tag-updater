@@ -2,6 +2,7 @@ import { clsx } from 'clsx'
 import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { TagsNewTagsObjects } from '../transpose'
+import { TextWithMarkdownLink } from './utils'
 
 type Props = {
   newTagObjects: TagsNewTagsObjects
@@ -97,14 +98,18 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                     />
                     {!!newTagObject?.msg && (
                       <div className="prose prose-sm rounded bg-amber-200 py-1 px-2 leading-tight">
-                        {newTagObject.msg}
+                        <TextWithMarkdownLink>
+                          {newTagObject.msg}
+                        </TextWithMarkdownLink>
                       </div>
                     )}
                     {field.newTag.startsWith('fixme=') &&
                       newTagObject.missingField && (
                         <div className="prose prose-sm rounded bg-orange-200 py-1 px-2 leading-tight">
                           {/* Test this with `parking:lane:{SIDE}=marked` */}
-                          {newTagObject.missingField.msg}
+                          <TextWithMarkdownLink>
+                            {newTagObject.missingField.msg}
+                          </TextWithMarkdownLink>
                           <ul className="marker:text-white">
                             {newTagObject.missingField?.values?.map((v) => {
                               const newValue = `${newTagObject.missingField?.key}=${v}`
