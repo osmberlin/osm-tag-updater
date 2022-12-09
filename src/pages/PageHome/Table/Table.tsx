@@ -131,9 +131,9 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                           </ul>
                         </div>
                       )}
-                    <div className="text-xs text-gray-300 hover:text-gray-600">
+                    {/* <div className="text-xs text-gray-300 hover:text-gray-600">
                       {JSON.stringify(newTagObject)}
-                    </div>
+                    </div> */}
                   </td>
                 </tr>
               )
