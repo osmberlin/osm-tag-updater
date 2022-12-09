@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { CopyButton } from './CopyButton'
-import { InputForm } from './InputForm'
+import { InputOsmId } from './InputOsmId'
 import { InputTags } from './InputTags'
 import { Table } from './Table'
 import { TagsNewTagsObjects, TagsStringArray, transpose } from './transpose'
@@ -54,7 +54,7 @@ export const PageHome: React.FC = () => {
           <div>
             <div className="mb-2 flex justify-between">
               <h2 className="font-bold">Input</h2>
-              <InputForm currentWayId={osmWayId} onSubmit={setOsmWayId} />
+              <InputOsmId currentWayId={osmWayId} onSubmit={setOsmWayId} />
             </div>
             <InputTags inputTags={inputTagsString} onSubmit={handleUpdate} />
           </div>

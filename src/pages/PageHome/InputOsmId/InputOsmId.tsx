@@ -10,7 +10,7 @@ type FormData = {
   wayId: number
 }
 
-export const InputForm: React.FC<Props> = ({ currentWayId, onSubmit }) => {
+export const InputOsmId: React.FC<Props> = ({ currentWayId, onSubmit }) => {
   const {
     register,
     handleSubmit,
