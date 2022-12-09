@@ -3,7 +3,7 @@ import { CopyButton } from './CopyButton'
 import { InputForm } from './InputForm'
 import { InputTags } from './InputTags'
 import { Table } from './Table'
-import { transpose, TagsNewTagsObjects, TagsStringArray } from './transpose'
+import { TagsNewTagsObjects, TagsStringArray, transpose } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
 import { tagsObjectToStringArray } from './utils'
 
@@ -16,8 +16,6 @@ export const PageHome: React.FC = () => {
   const inputTagsString = tagsObjectToStringArray(inputTags)
 
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
-  const [newTagsManualCandidates, setNewTagsManualCandidates] =
-    useState<TagsStringArray>([])
   const [newTagObjects, setNewTagObjects] = useState<TagsNewTagsObjects>({})
   const [outputTags, setOutputTags] = useState<string[]>([])
   const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
@@ -27,8 +25,8 @@ export const PageHome: React.FC = () => {
       transpose(tags)
 
     setIgnoredTags(ignoredTags)
-    setNewTagsManualCandidates(newTagsManualCandidates)
-    setNewTagObjects(newTagObjects)
+    // Both the tags that we where able to update as well as those that need to be updated manually are put into the
+    setNewTagObjects({ ...newTagObjects, ...newTagsManualCandidates })
   }
 
   useEffect(() => {
@@ -67,13 +65,7 @@ export const PageHome: React.FC = () => {
                 <CopyButton text={outputTags.join('\n')}>
                   Copy Parking Tags
                 </CopyButton>
-                <CopyButton
-                  text={[
-                    ...outputTags,
-                    ...ignoredTags,
-                    ...newTagsManualCandidates,
-                  ].join('\n')}
-                >
+                <CopyButton text={[...outputTags, ...ignoredTags].join('\n')}>
                   Copy All Tags
                 </CopyButton>
               </div>
@@ -99,17 +91,6 @@ export const PageHome: React.FC = () => {
         <Table newTagObjects={newTagObjects} setOutputTags={setOutputTags} />
 
         <div className="mt-5 grid grid-cols-2 gap-4">
-          <div>
-            <h3 className="font-semibold">
-              Tags that could not be transposed automatically – you need to
-              check them manually:
-            </h3>
-            <ul className="text-sm">
-              {newTagsManualCandidates.map((tag) => {
-                return <li key={tag}>{tag}</li>
-              })}
-            </ul>
-          </div>
           <div>
             <h3 className="font-semibold">Tags that we ignored:</h3>
             <ul className="text-sm">

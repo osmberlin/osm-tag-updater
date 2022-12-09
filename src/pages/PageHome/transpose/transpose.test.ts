@@ -10,7 +10,7 @@ describe('transpose()', () => {
     const compare = {
       ignoredTags: [],
       newTagObjects: {},
-      newTagsManualCandidates: [],
+      newTagsManualCandidates: {},
     }
     expect(result).toMatchObject(compare)
   })
@@ -34,10 +34,25 @@ describe('transpose()', () => {
 
     const compare = {
       ignoredTags: ['foo=bar'],
-      newTagsManualCandidates: ['parking:lane:unknown=unknown'],
+      newTagsManualCandidates: {
+        'parking:lane:unknown=unknown': {
+          compare: 'tag',
+          msg: 'something',
+          newTags: ['fixme=parking:lane:unknown=unknown'],
+        },
+      },
       newTagObjects: {},
     }
-    expect(result).toMatchObject(compare)
+    expect(result.ignoredTags).toMatchObject(compare.ignoredTags)
+    expect(result.newTagObjects).toMatchObject(compare.newTagObjects)
+    expect(Object.keys(result.newTagsManualCandidates)).toMatchObject(
+      Object.keys(compare.newTagsManualCandidates)
+    )
+    expect(
+      result.newTagsManualCandidates['parking:lane:unknown=unknown'].newTags
+    ).toMatchObject(
+      compare.newTagsManualCandidates['parking:lane:unknown=unknown'].newTags
+    )
   })
 
   test('handles tags with multiple @-signs as `ignoredTags` to be handled manually', () => {
@@ -48,12 +63,30 @@ describe('transpose()', () => {
 
     const compare = {
       ignoredTags: [],
-      newTagsManualCandidates: [
-        'parking:lane:foo=some @ (value); other @ value',
-      ],
+      newTagsManualCandidates: {
+        'parking:lane:foo=some @ (value); other @ value': {
+          compare: 'tag',
+          msg: 'This tag contains more than one @-sign. Please update it manually.',
+          newTags: ['fixme=parking:lane:foo=some @ (value); other @ value'],
+        },
+      },
       newTagObjects: {},
     }
-    expect(result).toMatchObject(compare)
+
+    expect(result.ignoredTags).toMatchObject(compare.ignoredTags)
+    expect(result.newTagObjects).toMatchObject(compare.newTagObjects)
+    expect(Object.keys(result.newTagsManualCandidates)).toMatchObject(
+      Object.keys(compare.newTagsManualCandidates)
+    )
+    expect(
+      result.newTagsManualCandidates[
+        'parking:lane:foo=some @ (value); other @ value'
+      ].newTags
+    ).toMatchObject(
+      compare.newTagsManualCandidates[
+        'parking:lane:foo=some @ (value); other @ value'
+      ].newTags
+    )
   })
 
   test('handles just keys as input as `ignoredTags` to be handled manually', () => {
@@ -62,10 +95,24 @@ describe('transpose()', () => {
 
     const compare = {
       ignoredTags: [],
-      newTagsManualCandidates: ['parking:lane:foo'],
+      newTagsManualCandidates: {
+        'parking:lane:foo': {
+          compare: 'tag',
+          msg: 'This has has to many or to litte =-signs. Please update it manually.',
+          newTags: ['fixme=parking:lane:foo'],
+        },
+      },
       newTagObjects: {},
     }
-    expect(result).toMatchObject(compare)
+
+    expect(result.ignoredTags).toMatchObject(compare.ignoredTags)
+    expect(result.newTagObjects).toMatchObject(compare.newTagObjects)
+    expect(Object.keys(result.newTagsManualCandidates)).toMatchObject(
+      Object.keys(compare.newTagsManualCandidates)
+    )
+    expect(
+      result.newTagsManualCandidates['parking:lane:foo'].newTags
+    ).toMatchObject(compare.newTagsManualCandidates['parking:lane:foo'].newTags)
   })
 
   describe('compare type _tag_', () => {
@@ -89,7 +136,7 @@ describe('transpose()', () => {
       const input: TagsStringArray = ['parking:lane:left:capacity=1337']
       const result = transpose(input)
 
-      console.log('result', JSON.stringify(result, undefined, 2))
+      // console.log('result', JSON.stringify(result, undefined, 2))
       const compare = {
         'parking:lane:left:capacity=1337': {
           compare: 'key',
@@ -107,7 +154,7 @@ describe('transpose()', () => {
       ]
       const result = transpose(input)
 
-      console.log('result', JSON.stringify(result, undefined, 2))
+      // console.log('result', JSON.stringify(result, undefined, 2))
       const compare = {
         'parking:condition:left:conditional=disabled @ (Mo-Fr 08:00-18:00)': {
           compare: 'regex',

@@ -1,8 +1,8 @@
 import { tagsFromTemplate } from './tagTemplates/tagsFromTemplate'
 import { tagsTemplates } from './tagTemplates/tagsTemplates.const'
-import { TagsNewTagsObjects } from './tagTemplates/types'
+import { NewTagsObject, TagsNewTagsObjects } from './tagTemplates/types'
 import { TagsStringArray } from './types'
-import { count, getKey, getValue } from './utils'
+import { count, getKey, getValue, splitTag } from './utils'
 
 export const transpose = (tags: TagsStringArray) => {
   const cleanInputTags = tags
@@ -28,15 +28,31 @@ export const transpose = (tags: TagsStringArray) => {
   const { compareByTag, compareByKey, compareByRegex } =
     tagsFromTemplate(tagsTemplates)
 
-  const newTagsManualCandidates: TagsStringArray = []
+  const createTagObject = (tag: string, msg: string) => {
+    const newTag: NewTagsObject = {
+      newTags: [`fixme=${tag}`],
+      compare: 'tag', // Not used, just for TS/consistency
+      msg,
+    }
+    return newTag
+  }
+
+  const newTagsManualCandidates: TagsNewTagsObjects = {}
   const newTagObjects: TagsNewTagsObjects = {}
   candidateTags.forEach((tag) => {
     // General checks – exit forEach if true
-    if (count(tag, '@') > 1 || count(tag, '=') !== 1) {
-      console.warn(
-        'Found more than one @-sign in this tag. Those cases need to be handled manually.'
+    if (count(tag, '@') > 1) {
+      newTagsManualCandidates[tag] = createTagObject(
+        tag,
+        'This tag contains more than one @-sign. Please update it manually.'
       )
-      newTagsManualCandidates.push(tag)
+      return
+    }
+    if (count(tag, '=') !== 1) {
+      newTagsManualCandidates[tag] = createTagObject(
+        tag,
+        'This has has to many or to litte =-signs. Please update it manually.'
+      )
       return
     }
 
@@ -79,7 +95,10 @@ export const transpose = (tags: TagsStringArray) => {
     }
 
     // Everythign else are manual candidates
-    newTagsManualCandidates.push(tag)
+    newTagsManualCandidates[tag] = createTagObject(
+      tag,
+      'The tool was not able to update this tag. Please update it manually. Some tags will split in multiple new tags. Please use the output-textarea to change those.'
+    )
   })
 
   return { ignoredTags, newTagsManualCandidates, newTagObjects }
