@@ -104,7 +104,7 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
                       </div>
                     )}
                     {field.newTag.startsWith('fixme=') &&
-                      newTagObject.missingField && (
+                      newTagObject?.missingField && (
                         <div className="prose prose-sm rounded bg-orange-200 py-1 px-2 leading-tight">
                           {/* Test this with `parking:lane:{SIDE}=marked` */}
                           <TextWithMarkdownLink>
