@@ -25,7 +25,6 @@ export const PageHome: React.FC = () => {
   const handleUpdate = (tags: TagsStringArray) => {
     const { ignoredTags, newTagsManualCandidates, newTagObjects } =
       transpose(tags)
-    console.log({ ignoredTags, newTagsManualCandidates, newTagObjects })
 
     setIgnoredTags(ignoredTags)
     setNewTagsManualCandidates(newTagsManualCandidates)

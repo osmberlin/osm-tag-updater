@@ -50,25 +50,17 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
     setOutputTags(initialOutputTags)
   }
 
-  // const resetForm = () => {
-  //   reset()
-  //   setTimeout(() => populateAndCleanupForm(), 1000)
-  // }
-
   useEffect(() => {
     reset()
     populateAndCleanupForm()
   }, [newTagObjects])
 
-  let oldTagStore = '' // Styling
+  let oldTagStore = '' // Used for styling
 
   return (
     <>
       <h2 className="mb-2 font-bold">New Tags</h2>
       <form onChange={onChange}>
-        {/* <button type="button" onClick={resetForm}>
-          Reset
-        </button> */}
         <table className="w-full">
           <thead className="border-b-4">
             <tr>
@@ -78,7 +70,7 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
           </thead>
           <tbody>
             {fields.map((field, index) => {
-              const secondOldTag = oldTagStore === field.oldTag // Styling
+              const secondOldTag = oldTagStore === field.oldTag // Used for styling
               oldTagStore = field.oldTag
               const newTagObject = newTagObjects[field.oldTag]
 
