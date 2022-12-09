@@ -61,7 +61,7 @@ export const PageHome: React.FC = () => {
               <h2 className="font-bold">Input</h2>
               <InputOsmId currentWayId={osmWayId} onSubmit={setOsmWayId} />
             </div>
-            <InputTags inputTags={inputTagsString} onSubmit={handleUpdate} />
+            <InputTags tags={inputTagsString} onSubmit={handleUpdate} />
           </div>
           <div>
             <div className="mb-2 flex justify-between">

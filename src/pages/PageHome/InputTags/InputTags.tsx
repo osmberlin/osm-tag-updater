@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 
 type Props = {
-  inputTags: string[] | undefined
+  tags: string[] | undefined
   onSubmit: (tags: string[]) => void
 }
 
@@ -10,7 +10,7 @@ type FormData = {
   tags: string
 }
 
-export const InputTags: React.FC<Props> = ({ inputTags, onSubmit }) => {
+export const InputTags: React.FC<Props> = ({ tags, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ export const InputTags: React.FC<Props> = ({ inputTags, onSubmit }) => {
         {...register('tags')}
         onKeyDown={handleKeyDown}
         className="block h-40 w-full resize rounded-md border-gray-300 font-mono text-sm shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
-        defaultValue={inputTags?.join('\n')}
+        defaultValue={tags?.join('\n')}
         required
       />
       {errors.tags && (
