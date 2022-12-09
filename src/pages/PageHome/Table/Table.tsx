@@ -44,7 +44,7 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
     const initialOutputTags: string[] = []
     Object.entries(newTagObjects).map(([oldTag, newTagObject]) => {
       newTagObject.newTags.map((newTag) => {
-        append({ oldTag, newTag }, { focusName: 'tags' })
+        append({ oldTag, newTag }, { focusName: 'inputTags' })
         initialOutputTags.push(newTag)
       })
     })
