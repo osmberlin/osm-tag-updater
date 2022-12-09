@@ -58,6 +58,8 @@ export const transpose = (tags: TagsStringArray) => {
       return
     }
 
+    // Compare-Type 'regex' – exit forEach if true
+    let returnBecauseRegexMatched = false
     Object.entries(compareByRegex).forEach(([oldKey, newKeyObject]) => {
       const regex = new RegExp(oldKey.replace('{ANYTHING}', '(.*)'))
       const match = tag.match(regex)
@@ -69,8 +71,12 @@ export const transpose = (tags: TagsStringArray) => {
             ...newKeyObject.newTags.map((t) => t.replace('{ANYTHING}', value)),
           ],
         }
+        returnBecauseRegexMatched = true
       }
     })
+    if (returnBecauseRegexMatched) {
+      return
+    }
 
     // Everythign else are manual candidates
     newTagsManualCandidates.push(tag)
