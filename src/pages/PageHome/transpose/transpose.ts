@@ -48,7 +48,8 @@ export const transpose = (tags: TagsStringArray) => {
       )
       return
     }
-    if (count(tag, '=') !== 1) {
+    const [checkKey, checkValue] = splitTag(tag)
+    if (count(tag, '=' || !checkKey || !checkValue) !== 1) {
       newTagsManualCandidates[tag] = createTagObject(
         tag,
         'This has has to many or to litte =-signs. Please update it manually.'
