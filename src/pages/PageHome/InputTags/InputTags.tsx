@@ -24,6 +24,11 @@ export const InputTags: React.FC<Props> = ({ tags, onSubmit }) => {
   // Enable cmd+enter
   // Thanks for the help at https://github.com/react-hook-form/react-hook-form/discussions/9485
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    console.log('Debug handleKeyDown(): ', {
+      key: event.key,
+      metaKey: event.metaKey,
+    })
+
     if (event.metaKey && event.key === 'Enter') {
       innerOnSubmit()
     }
