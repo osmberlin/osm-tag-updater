@@ -1,4 +1,5 @@
 import { ExternalLink } from '@components/Link'
+import { Link } from '@tanstack/react-location'
 
 const navigation = {
   main: [
@@ -40,6 +41,14 @@ export const Footer: React.FC = () => {
               </ExternalLink>
             </div>
           ))}
+          <div className="px-5 py-2">
+            <Link
+              to={'/list'}
+              className="text-base text-gray-500 hover:text-gray-900"
+            >
+              List of all tag transformations
+            </Link>
+          </div>
         </nav>
         <p className="mt-8 text-center text-base text-gray-400">
           This project is part of the OpenStreetMap Parking Space Project.
