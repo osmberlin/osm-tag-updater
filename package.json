@@ -1,7 +1,7 @@
 {
   "name": "osm-parking-tag-updater",
   "private": true,
-  "version": "0.0.14",
+  "version": "0.0.15",
   "type": "module",
   "scripts": {
     "start": "vite --host 127.0.0.1",
