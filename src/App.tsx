@@ -5,6 +5,7 @@ import {
   MakeGenerics,
   Outlet,
   ReactLocation,
+  createHashHistory,
   Router,
 } from '@tanstack/react-location'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -20,7 +21,9 @@ type LocationGenerics = MakeGenerics<{
   Params: { wayId: string }
 }>
 
-const location = new ReactLocation<LocationGenerics>()
+const hashHistory = createHashHistory()
+
+const location = new ReactLocation<LocationGenerics>({ history: hashHistory })
 
 const queryClient = new QueryClient({
   defaultOptions: {
