@@ -52,8 +52,8 @@ export const Header: React.FC = () => {
               and <strong>update those tags manually</strong>.
             </p>
             <p>
-              Also consider checking the actual parking situation on areal
-              imageray and streetlevel images to make sure nothing change since
+              Also consider checking the actual parking situation on aerial
+              imagery and streetlevel images to make sure nothing change since
               this road segment was mapped.
             </p>
           </details>
