@@ -6,6 +6,10 @@ export const primaryKeyOrientationPresent = (tags: TagsStringArray) => {
   type Conclusion = 'missing' | 'present' | 'not_needed' | null
   let conclusion: Conclusion = null
 
+  if (!tags?.length) {
+    return true
+  }
+
   // Both orientation keys have to exist
   if (tags.some((t) => getKey(t) === 'parking:both')) {
     if (tags.some((t) => getKey(t) === 'parking:both:orientation')) {

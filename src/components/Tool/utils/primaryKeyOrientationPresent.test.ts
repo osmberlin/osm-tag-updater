@@ -2,6 +2,11 @@ import { describe, expect, test } from 'vitest'
 import { primaryKeyOrientationPresent } from './primaryKeyOrientationPresent'
 
 describe('checkPrimaryKeyOrientation()', () => {
+  test('returns true if no tags at all', () => {
+    const result = primaryKeyOrientationPresent([])
+    expect(true).toMatchObject(result)
+  })
+
   describe('returns true if both tags are present', () => {
     test('case both+both', () => {
       const result = primaryKeyOrientationPresent([
