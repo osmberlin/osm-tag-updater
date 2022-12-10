@@ -61,8 +61,6 @@ export const primaryKeyOrientationPresent = (tags: TagsStringArray) => {
     conclusion = 'not_needed'
   }
 
-  console.log({ conclusion })
-
   if (conclusion === null) {
     return false
   }

@@ -1,1 +1,1 @@
-export * from './PageHome/PageHome'
+export * from './PageWay/PageWayShow'

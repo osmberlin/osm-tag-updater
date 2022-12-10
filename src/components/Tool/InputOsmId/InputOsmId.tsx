@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 
 type Props = {
-  currentWayId: number
+  currentWayId: number | string
   onSubmit: (wayId: number) => void
 }
 

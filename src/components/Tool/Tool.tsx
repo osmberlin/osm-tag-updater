@@ -1,25 +1,27 @@
 import { ExternalLink } from '@components/Link'
-import { useEffect, useState } from 'react'
-import { CopyButton } from './CopyButton'
-import { InputOsmId } from './InputOsmId'
-import { InputTags } from './InputTags'
-import { Table } from './Table'
-import { TagsNewTagsObjects, TagsStringArray, transpose } from './transpose'
-import { useOsmQuery } from './useOsmQuery'
+import { useState } from 'react'
+import { CopyButton } from '../../components/Tool/CopyButton'
+import { InputTags } from '../../components/Tool/InputTags'
+import { Table } from '../../components/Tool/Table'
+import {
+  TagsNewTagsObjects,
+  TagsStringArray,
+  transpose,
+} from '../../components/Tool/transpose'
 import {
   primaryKeyOrientationPresent,
   primaryKeyParkingPresent,
   tagsObjectToStringArray,
-} from './utils'
-import { checkSideBothInconsistencies } from './utils/checkSideBothInconsistencies'
-import { deduplicateTags } from './utils/deduplicateTags'
+} from '../../components/Tool/utils'
+import { checkSideBothInconsistencies } from '../../components/Tool/utils/checkSideBothInconsistencies'
+import { deduplicateTags } from '../../components/Tool/utils/deduplicateTags'
+import { Way } from '../queryWay'
 
-export const PageHome: React.FC = () => {
-  const [osmWayId, setOsmWayId] = useState(858659630)
-  const { isInitialLoading, isError, data, error, isFetching } =
-    useOsmQuery(osmWayId)
+type Props = { rawTags?: Way }
 
-  const inputTags = data?.elements?.[0]?.tags
+export const Tool: React.FC<Props> = ({ rawTags }) => {
+  console.log({ rawTags })
+  const inputTags = rawTags?.elements?.[0]?.tags
   const inputTagsString = tagsObjectToStringArray(inputTags)
 
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
@@ -43,23 +45,9 @@ export const PageHome: React.FC = () => {
     setNewTagObjects({ ...newTagObjects, ...newTagsManualCandidates })
   }
 
-  useEffect(() => {
-    inputTagsString && handleUpdate(inputTagsString)
-  }, [data])
-
-  if (!data) {
-    if (isError) {
-      // @ts-ignore need to check this in the library or github issues
-      return <span>Error: {error.message}</span>
-    }
-    if (isInitialLoading) {
-      return <span>Loading…</span>
-    }
-    return <span>Not ready …</span>
-  }
-  if (isFetching) {
-    return <span>Fetching…</span>
-  }
+  // if (inputTagsString) {
+  //   handleUpdate(inputTagsString)
+  // }
 
   return (
     <>
@@ -68,7 +56,6 @@ export const PageHome: React.FC = () => {
           <div>
             <div className="mb-2 flex justify-between">
               <h2 className="font-bold">Input</h2>
-              <InputOsmId currentWayId={osmWayId} onSubmit={setOsmWayId} />
             </div>
             <InputTags tags={inputTagsString} onSubmit={handleUpdate} />
           </div>
@@ -95,7 +82,7 @@ export const PageHome: React.FC = () => {
                 in the table below.
               </div>
             )}
-            {!!ignoredTagsEdgeCases.length && (
+            {Boolean(ignoredTagsEdgeCases.length) && (
               <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
                 Please review the following tags. They include the term{' '}
                 <code>parking</code> which is a strong indication that they
@@ -126,7 +113,7 @@ export const PageHome: React.FC = () => {
                 </ExternalLink>
               </div>
             )}
-            {checkSideBothInconsistencies(outputTags)?.length && (
+            {Boolean(checkSideBothInconsistencies(outputTags)?.length) && (
               <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
                 The following keys are inconsistent. Either change the{' '}
                 <code>:both</code> to <code>:left</code> <em>or</em>{' '}

@@ -63,7 +63,7 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
       <h2 className="mb-2 font-bold">New Tags</h2>
       <form onChange={onChange}>
         <table className="w-full">
-          <thead className="border-b-4">
+          <thead className="border-b-2 border-violet-300">
             <tr>
               <th className="text-left font-semibold">Old Tags:</th>
               <th className="text-left font-semibold">New Tags:</th>
@@ -76,7 +76,10 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
               const newTagObject = newTagObjects[field.oldTag]
 
               return (
-                <tr key={field.id} className="border-b hover:bg-purple-50">
+                <tr
+                  key={field.id}
+                  className="border-b border-violet-200 hover:bg-purple-50"
+                >
                   <th
                     className={clsx(
                       'w-1/3 py-1 text-left align-top font-semibold',

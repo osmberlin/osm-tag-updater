@@ -1,9 +1,14 @@
 import { TagsStringArray } from '../transpose'
 
-export const tagsObjectToStringArray = (inputTags: {
-  [tag: string]: string
-}) => {
+type Props =
+  | {
+      [tag: string]: string
+    }
+  | undefined
+
+export const tagsObjectToStringArray = (inputTags: Props) => {
   if (!inputTags) return undefined
+
   return Object.entries(inputTags).map(
     ([key, value]) => `${key}=${value}`
   ) as TagsStringArray
