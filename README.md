@@ -23,6 +23,7 @@ This is a plain Typescript React App using Vite.
   - General TS Docs https://react-hook-form.com/get-started#TypeScript
   - Validation example https://github.com/react-hook-form/react-hook-form/blob/master/examples/V7/validationOnFieldChange.tsx
   - useFieldArray for the dynamic field list https://react-hook-form.com/api/usefieldarray
+- Husky runs our checks on push. Use `git push --no-verify` to force-skip them.
 
 # OSM Schema
 
