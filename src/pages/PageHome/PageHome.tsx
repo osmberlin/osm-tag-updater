@@ -7,8 +7,8 @@ import { Table } from './Table'
 import { TagsNewTagsObjects, TagsStringArray, transpose } from './transpose'
 import { useOsmQuery } from './useOsmQuery'
 import {
-  checkPrimaryKeyOrientation,
-  checkPrimaryKeyParking,
+  primaryKeyOrientationPresent,
+  primaryKeyParkingPresent,
   tagsObjectToStringArray,
 } from './utils'
 import { checkSideBothInconsistencies } from './utils/checkSideBothInconsistencies'
@@ -103,7 +103,7 @@ export const PageHome: React.FC = () => {
                 <code>{ignoredTagsEdgeCases.join(', ')}</code>
               </div>
             )}
-            {!checkPrimaryKeyParking(outputTags) && (
+            {!primaryKeyParkingPresent(outputTags) && (
               <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
                 The primary key <code>parking:$side=*</code> is missing.{' '}
                 <ExternalLink
@@ -114,7 +114,7 @@ export const PageHome: React.FC = () => {
                 </ExternalLink>
               </div>
             )}
-            {!checkPrimaryKeyOrientation(outputTags) && (
+            {!primaryKeyOrientationPresent(outputTags) && (
               <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
                 The primary orientation key{' '}
                 <code>parking:$side:orientation=*</code> is missing.{' '}
