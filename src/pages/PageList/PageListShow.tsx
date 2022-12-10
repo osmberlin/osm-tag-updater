@@ -1,12 +1,21 @@
+import { ExternalLink } from '@components/Link'
 import { tagsTemplates } from '@components/Tool/transpose'
 
 export const PageListShow: React.FC = () => {
   return (
     <section>
-      <h1 className="mb-10 text-center text-2xl">
+      <h1 className="mb-5 text-center text-2xl">
         A list of tag transformations
       </h1>
-      <table className="min-w-full">
+      <p className="text-center">
+        <ExternalLink
+          href="https://wiki.openstreetmap.org/wiki/Street_parking"
+          className="underline"
+        >
+          OSM Wiki
+        </ExternalLink>
+      </p>
+      <table className="mt-10 min-w-full">
         <thead className="border-b-2 border-violet-300">
           <tr>
             <th
