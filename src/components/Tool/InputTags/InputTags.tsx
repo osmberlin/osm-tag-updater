@@ -57,7 +57,7 @@ export const InputTags: React.FC<Props> = ({
       )}
       <div className="mt-2 flex items-center justify-end gap-3">
         <span className="text-xs text-gray-500">
-          Tip: Use <kbd>cmd</kbd>+<kbd>enter</kbd> to submit the form.
+          Tip: Use <kbd>cmd/alt</kbd>+<kbd>enter</kbd> to submit the form.
         </span>
         <button
           type="submit"
