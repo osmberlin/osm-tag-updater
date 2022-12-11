@@ -20,7 +20,6 @@ import { Way } from '../queryWay'
 type Props = { rawTags?: Way }
 
 export const Tool: React.FC<Props> = ({ rawTags }) => {
-  console.log({ rawTags })
   const inputTags = rawTags?.elements?.[0]?.tags
   const inputTagsString = tagsObjectToStringArray(inputTags)
 
@@ -57,7 +56,11 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
             <div className="mb-2 flex justify-between">
               <h2 className="font-bold">Input</h2>
             </div>
-            <InputTags tags={inputTagsString} onSubmit={handleUpdate} />
+            <InputTags
+              autofocus={!rawTags}
+              tags={inputTagsString}
+              onSubmit={handleUpdate}
+            />
           </div>
           <div>
             <div className="mb-2 flex justify-between">
