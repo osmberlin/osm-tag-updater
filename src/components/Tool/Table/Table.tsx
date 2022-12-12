@@ -1,6 +1,7 @@
 import { clsx } from 'clsx'
 import React, { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
+import { NumberIcon } from '../NumberIcon'
 import { TagsNewTagsObjects } from '../transpose'
 import { TextWithMarkdownLink } from './utils'
 
@@ -60,7 +61,10 @@ export const Table: React.FC<Props> = ({ newTagObjects, setOutputTags }) => {
 
   return (
     <>
-      <h2 className="mb-2 font-bold">New Tags</h2>
+      <div className="mb-2 flex items-center justify-start gap-2">
+        <NumberIcon number={2} />
+        <h2 className="font-bold text-fuchsia-600">Review new tags</h2>
+      </div>
       <form onChange={onChange}>
         <table className="w-full">
           <thead className="border-b-2 border-violet-300">

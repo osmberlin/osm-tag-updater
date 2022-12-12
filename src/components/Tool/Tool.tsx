@@ -16,6 +16,7 @@ import {
 import { checkSideBothInconsistencies } from '../../components/Tool/utils/checkSideBothInconsistencies'
 import { deduplicateTags } from '../../components/Tool/utils/deduplicateTags'
 import { Way } from '../queryWay'
+import { NumberIcon } from './NumberIcon'
 
 type Props = { rawTags?: Way }
 
@@ -53,8 +54,9 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
       <section>
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>
-            <div className="mb-2 flex justify-between">
-              <h2 className="font-bold">Input</h2>
+            <div className="mb-2 flex items-center justify-start gap-2">
+              <NumberIcon number={1} />
+              <h2 className="font-bold text-fuchsia-600">Input</h2>
             </div>
             <InputTags
               autofocus={!rawTags}
@@ -63,8 +65,9 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
             />
           </div>
           <div>
-            <div className="mb-2 flex justify-between">
-              <h2 className="font-bold">Output</h2>
+            <div className="mb-2 flex items-center justify-start gap-2">
+              <NumberIcon number={3} />
+              <h2 className="font-bold text-fuchsia-600">Output</h2>
             </div>
             <textarea
               className="block h-40 w-full resize rounded-md border-gray-300 font-mono text-sm shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
@@ -148,7 +151,9 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
 
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>
-            <h3 className="font-semibold">Tags that we ignored:</h3>
+            <h3 className="font-semibold text-fuchsia-600">
+              FYI: Tags that where ignored:
+            </h3>
             <ul className="text-sm">
               {ignoredTags.map((tag) => {
                 return <li key={tag}>{tag}</li>
