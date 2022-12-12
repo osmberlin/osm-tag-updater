@@ -65,20 +65,23 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
           <div>
             <div className="mb-2 flex justify-between">
               <h2 className="font-bold">Output</h2>
-              <div className="flex gap-3">
-                <CopyButton text={outputTags.join('\n')}>
-                  Copy Parking Tags
-                </CopyButton>
-                <CopyButton text={[...outputTags, ...ignoredTags].join('\n')}>
-                  Copy All Tags
-                </CopyButton>
-              </div>
             </div>
             <textarea
               className="block h-40 w-full resize rounded-md border-gray-300 font-mono text-sm shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
               value={outputTags.join('\n')}
               readOnly
             />
+            <div className="mt-2 flex items-center justify-end gap-3">
+              <CopyButton text={outputTags.join('\n')}>
+                Copy Parking Tags
+              </CopyButton>
+              <CopyButton
+                secondary
+                text={[...outputTags, ...ignoredTags].join('\n')}
+              >
+                Copy All Tags
+              </CopyButton>
+            </div>
             {outputTags.some((tag) => tag.startsWith('fixme=')) && (
               <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
                 Please fix the <code>fixme=*</code> tags. Details are described

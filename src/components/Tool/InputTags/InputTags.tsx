@@ -61,7 +61,7 @@ export const InputTags: React.FC<Props> = ({
         </span>
         <button
           type="submit"
-          className="flex h-5 items-center rounded border bg-gray-50 px-0.5 text-xs font-semibold shadow hover:bg-blue-50"
+          className="inline-flex items-center rounded-full border border-transparent bg-violet-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
         >
           Update
         </button>
