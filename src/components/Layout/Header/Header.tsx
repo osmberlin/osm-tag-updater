@@ -1,14 +1,41 @@
 import { ExternalLink } from '@components/Link'
+import { Link } from '@tanstack/react-location'
+import clsx from 'clsx'
+
+const WrapWithLink = ({
+  className,
+  children,
+}: {
+  className: string
+  children: React.ReactNode
+}) => {
+  return (
+    <Link
+      className={clsx(
+        className,
+        'decoration-violet-700 underline-offset-4 hover:underline'
+      )}
+      getActiveProps={() => ({
+        className: 'hover:no-underline cursor-default',
+      })}
+      to="/"
+    >
+      {children}
+    </Link>
+  )
+}
 
 export const Header: React.FC = () => {
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-7xl overflow-hidden px-4 pt-10 pb-6 sm:px-6 lg:px-8">
         <div className="-mx-5 -my-2 flex flex-col flex-wrap">
-          <h1 className="mb-3 self-center text-3xl font-light text-violet-700">
-            OSM Parking Lane Tag Updater{' '}
-            <small className="text-xs">{APP_VERSION}</small>
-          </h1>
+          <WrapWithLink className="mb-3 self-center">
+            <h1 className="text-3xl font-light text-violet-700">
+              OSM Parking Lane Tag Updater{' '}
+              <small className="text-xs">{APP_VERSION}</small>
+            </h1>
+          </WrapWithLink>
           <details
             open
             className="prose my-5 max-w-prose self-center leading-tight"
