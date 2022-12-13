@@ -43,7 +43,7 @@ export const Footer: React.FC = () => {
           ))}
           <div className="px-5 py-2">
             <Link
-              to={'/list'}
+              to="/list"
               className="text-base text-gray-500 hover:text-gray-900"
             >
               List of all tag transformations
