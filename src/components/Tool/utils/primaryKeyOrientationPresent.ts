@@ -1,5 +1,5 @@
 import { TagsStringArray } from '../transpose'
-import { getKey } from '../transpose/utils'
+import { getKey, getValue } from '../transpose/utils'
 
 /** @returns true if :orientation key is present for the given primary key situation */
 export const primaryKeyOrientationPresent = (tags: TagsStringArray) => {
@@ -25,7 +25,13 @@ export const primaryKeyOrientationPresent = (tags: TagsStringArray) => {
   }
 
   // Left is needed
-  if (tags.some((t) => getKey(t) === 'parking:left')) {
+  if (
+    tags.some(
+      (t) =>
+        getKey(t) === 'parking:left' &&
+        !['no', 'separate'].includes(getValue(t))
+    )
+  ) {
     if (
       tags.some((t) => getKey(t) === 'parking:left:orientation') ||
       tags.some((t) => getKey(t) === 'parking:both:orientation')
@@ -37,7 +43,13 @@ export const primaryKeyOrientationPresent = (tags: TagsStringArray) => {
   }
 
   // Right is needed
-  if (tags.some((t) => getKey(t) === 'parking:right')) {
+  if (
+    tags.some(
+      (t) =>
+        getKey(t) === 'parking:right' &&
+        !['no', 'separate'].includes(getValue(t))
+    )
+  ) {
     if (
       tags.some((t) => getKey(t) === 'parking:right:orientation') ||
       tags.some((t) => getKey(t) === 'parking:both:orientation')

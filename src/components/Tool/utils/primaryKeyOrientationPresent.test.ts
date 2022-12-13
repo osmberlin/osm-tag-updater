@@ -143,4 +143,33 @@ describe('checkPrimaryKeyOrientation()', () => {
       expect(false).toMatchObject(result)
     })
   })
+
+  // Bug https://github.com/osmberlin/osm-tag-updater/issues/11
+  describe('returns true when one side is no/separate', () => {
+    test('case no', () => {
+      const result = primaryKeyOrientationPresent([
+        'parking:left:fee=no',
+        'parking:left:orientation=parallel',
+        'parking:left=lane',
+        'parking:right:restriction=no_stopping',
+        'parking:right=no',
+      ])
+
+      console.log(JSON.stringify(result))
+      expect(true).toMatchObject(result)
+    })
+
+    test('case separate', () => {
+      const result = primaryKeyOrientationPresent([
+        'parking:left:fee=no',
+        'parking:left:orientation=parallel',
+        'parking:left=lane',
+        'parking:right:restriction=no_stopping',
+        'parking:right=separate',
+      ])
+
+      console.log(JSON.stringify(result))
+      expect(true).toMatchObject(result)
+    })
+  })
 })
