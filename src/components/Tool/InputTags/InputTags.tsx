@@ -39,6 +39,7 @@ export const InputTags: React.FC<Props> = ({
       <textarea
         {...register('inputTags')}
         onKeyDown={handleKeyDown}
+        onBlur={innerOnSubmit}
         className="block h-40 w-full resize rounded-md border-gray-300 font-mono text-sm shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
         defaultValue={tags?.join('\n')}
         required
