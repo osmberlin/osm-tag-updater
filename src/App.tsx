@@ -40,6 +40,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router
         location={location}
+        // basepath="osm-tag-updater"
         routes={[
           {
             path: '/',
