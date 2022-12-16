@@ -20,6 +20,9 @@ cd dist
 # place .nojekyll to bypass Jekyll processing
 echo > .nojekyll
 
+# copy our app (index.html) as 404.html so our routing works with "open in new tab" (by serving and using the 404 page)
+cp index.html 404.html
+
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
 
