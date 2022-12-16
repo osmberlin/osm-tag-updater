@@ -1,6 +1,7 @@
 export * from './checkSideBothInconsistencies'
 export * from './consolidateSides'
 export * from './deduplicateTags'
+export * from './morePreciseValueWins'
 export * from './primaryKeyOrientationPresent'
 export * from './primaryKeyParkingPresent'
 export * from './transformDataStructure'

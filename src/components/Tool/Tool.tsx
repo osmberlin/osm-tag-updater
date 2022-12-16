@@ -10,6 +10,7 @@ import {
 } from '../../components/Tool/transpose'
 import {
   consolidateSides,
+  morePreciseValueWins,
   primaryKeyOrientationPresent,
   primaryKeyParkingPresent,
   tagsObjectToStringArray,
@@ -34,6 +35,7 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
     tags = tags.filter(Boolean)
     tags = deduplicateTags(tags)
     tags = consolidateSides(tags)
+    tags = morePreciseValueWins(tags)
     tags = tags.sort((t1, t2) => t1.localeCompare(t2))
     setOutputTags(tags)
   }
