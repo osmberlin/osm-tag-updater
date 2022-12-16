@@ -156,6 +156,7 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
             <h3 className="font-semibold text-fuchsia-600">
               FYI: Tags that where ignored:
             </h3>
+            {!ignoredTags.length && <p className="text-gray-500">(None)</p>}
             <ul className="text-sm">
               {ignoredTags.map((tag) => {
                 return <li key={tag}>{tag}</li>
