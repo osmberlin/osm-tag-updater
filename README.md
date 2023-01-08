@@ -6,7 +6,7 @@ The general idea is, to build a tool that will help mappers to update deprecated
 
 The concrete use case is to provide a tool tool that helps with updating the parking lane data, following the [street parking revision proposal](https://wiki.openstreetmap.org/wiki/Proposed_features/street_parking_revision).
 
-## Prototype
+## App
 
 https://osmberlin.github.io/osm-tag-updater/
 
