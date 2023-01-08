@@ -40,7 +40,7 @@ A very rough outline of possible MVP releases. Each MVP has a feasable workflow 
 
 - DONE – Online tool that takes a list of tags (one Textfield) and transposes them to the new tags (second Textfield)
 - DONE – Transposed tags need to be copied to an editor manually
-- A MapRoulette challenge with custom description part that holds a link to the tool
+- PLANNED – A MapRoulette challenge with custom description part that holds a link to the tool
 
 _Workflow:_
 
@@ -52,8 +52,8 @@ Separate: Editor => Find ways again => Update tags there
 ## MVP 2 – WIP
 
 - DONE – The tool can be opened with a OSM ID and transposes those
-- Mappers can then open iD / JOSM from there
-- Now we could use this tools URL in a MapRoulette challenge as primary editor.
+- PLANNED – Mappers can then open iD / JOSM from there
+- PLANNED – Now we could use this tools URL in a MapRoulette challenge as primary editor.
 
 _Workflow:_
 
