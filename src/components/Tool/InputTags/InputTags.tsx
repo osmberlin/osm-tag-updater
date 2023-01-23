@@ -1,3 +1,4 @@
+import { buttonStyle } from '@components/Link'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -55,10 +56,7 @@ export const InputTags: React.FC<Props> = ({
         <span className="text-xs text-gray-500">
           Tip: Use <kbd>option/alt</kbd>+<kbd>enter</kbd> to submit the form.
         </span>
-        <button
-          type="submit"
-          className="inline-flex items-center rounded-full border border-transparent bg-violet-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-violet-800 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
-        >
+        <button type="submit" className={buttonStyle}>
           Update
         </button>
       </div>
