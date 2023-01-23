@@ -29,7 +29,15 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
   const [ignoredTags, setIgnoredTags] = useState<TagsStringArray>([])
   const [newTagObjects, setNewTagObjects] = useState<TagsNewTagsObjects>({})
   const [outputTags, setOutputTags] = useState<string[]>([])
-  const ignoredTagsEdgeCases = ignoredTags.filter((t) => t.includes('parking'))
+  const newSchemaPresent = ignoredTags.filter(
+    (t) =>
+      t.includes('parking:left') ||
+      t.includes('parking:right') ||
+      t.includes('parking:both')
+  )
+  const ignoredTagsEdgeCases = ignoredTags.filter(
+    (t) => t.includes('parking') && !newSchemaPresent.includes(t)
+  )
 
   const handleSetOutputTags = (tags: TagsStringArray) => {
     tags = tags.filter(Boolean)
@@ -101,6 +109,13 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
                 <code>parking</code> which is a strong indication that they
                 should be handled manually:{' '}
                 <code>{ignoredTagsEdgeCases.join(', ')}</code>
+              </div>
+            )}
+            {Boolean(newSchemaPresent.length) && (
+              <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
+                FYI, it looks like this way has already new tags tagged. Please
+                merge them manually in your editor of choise:{' '}
+                <code>{newSchemaPresent.join(', ')}</code>
               </div>
             )}
             {!primaryKeyParkingPresent(outputTags) && (

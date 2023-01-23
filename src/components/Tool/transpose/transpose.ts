@@ -18,11 +18,17 @@ export const transpose = (tags: TagsStringArray) => {
     .map((t) => t.replaceAll('$type', 'parallel'))
     .map((t) => t.replaceAll('{TYPE}', 'parallel'))
 
-  const ignoredTags: TagsStringArray = cleanInputTags.filter(
-    (t) => !t.startsWith('parking:')
+  const candidateTags: TagsStringArray = cleanInputTags.filter(
+    (t) =>
+      t.startsWith('parking:') &&
+      !(
+        t.startsWith('parking:left') ||
+        t.startsWith('parking:right') ||
+        t.startsWith('parking:both')
+      )
   )
-  const candidateTags: TagsStringArray = cleanInputTags.filter((t) =>
-    t.startsWith('parking:')
+  const ignoredTags: TagsStringArray = cleanInputTags.filter(
+    (t) => !candidateTags.includes(t)
   )
 
   const { compareByTag, compareByKey, compareByRegex } =

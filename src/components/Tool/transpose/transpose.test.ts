@@ -167,4 +167,57 @@ describe('transpose()', () => {
       expect(result.newTagObjects).toMatchObject(compare)
     })
   })
+
+  describe('ignore new schema', () => {
+    test('only new schema => no output tags', () => {
+      const input: TagsStringArray = [
+        'parking:both=lane',
+        'parking:both:authentication:disc=no',
+        'parking:both:fee=no',
+        'parking:both:markings=no',
+        'parking:both:orientation=parallel',
+      ]
+      const result = transpose(input)
+
+      // console.log('result', JSON.stringify(result, undefined, 2))
+      expect(result.ignoredTags).toMatchObject(input)
+      expect(result.newTagObjects).toMatchObject({})
+      expect(result.newTagsManualCandidates).toMatchObject({})
+    })
+  })
+
+  test('mixed old/new schema ignores the new, updates the old', () => {
+    const inputIgnore: TagsStringArray = [
+      'parking:both=lane',
+      'parking:both:authentication:disc=no',
+      'parking:both:fee=no',
+      'parking:both:markings=no',
+      'parking:both:orientation=parallel',
+    ]
+    const inputTranspose: TagsStringArray = [
+      'parking:condition:both=free',
+      'parking:lane:both=parallel',
+      'parking:lane:both:parallel=on_street',
+    ]
+    const result = transpose([...inputIgnore, ...inputTranspose])
+
+    // console.log('result', JSON.stringify(result, undefined, 2))
+    const compareTagObjects = {
+      'parking:condition:both=free': {
+        compare: 'tag',
+        newTags: ['parking:both:fee=no'],
+      },
+      'parking:lane:both=parallel': {
+        compare: 'tag',
+        newTags: ['parking:both:orientation=parallel'],
+      },
+      'parking:lane:both:parallel=on_street': {
+        compare: 'tag',
+        newTags: ['parking:both=lane'],
+      },
+    }
+    expect(result.ignoredTags).toMatchObject(inputIgnore)
+    expect(result.newTagObjects).toMatchObject(compareTagObjects)
+    expect(result.newTagsManualCandidates).toMatchObject({})
+  })
 })
