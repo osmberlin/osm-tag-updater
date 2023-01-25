@@ -113,8 +113,8 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
             )}
             {Boolean(newSchemaPresent.length) && (
               <div className="prose mt-2 rounded bg-orange-200 px-3 py-2 leading-tight">
-                FYI, it looks like this way has already new tags tagged. Please
-                merge them manually in your editor of choise:{' '}
+                FYI, it looks like this way already has new tags tagged. Please
+                merge them manually in your editor of choice:{' '}
                 <code>{newSchemaPresent.join(', ')}</code>
               </div>
             )}

@@ -32,7 +32,7 @@ export const tagsTemplates: TagsNewTagsObjects = {
     missingField: {
       key: 'parking:{SIDE}:orientation',
       values: ['parallel', 'diagonal', 'perpendicular'],
-      msg: 'Please provide the orientation of parked cars. This information was not recored previously, which is one of the benefits of the new schema.',
+      msg: 'Please provide the orientation of parked cars. This information was not recorded previously, which is one of the benefits of the new schema.',
     },
   },
   'parking:lane:{SIDE}=no': {
@@ -91,7 +91,7 @@ export const tagsTemplates: TagsNewTagsObjects = {
     missingField: {
       key: 'parking:{SIDE}',
       values: ['on_street', 'half_on_kerb', 'on_kerb', 'street_side', 'lay_by'],
-      msg: 'Please provide the position of parked cars. This information was not recored previously, which is one of the benefits of the new schema.',
+      msg: 'Please provide the position of parked cars. This information was not recorded previously, which is one of the benefits of the new schema.',
     },
   },
   'parking:lane:{SIDE}:capacity': {

@@ -80,7 +80,7 @@ export const Header: React.FC = () => {
             </p>
             <p>
               Also consider checking the actual parking situation on aerial
-              imagery and streetlevel images to make sure nothing change since
+              imagery and street-level images to make sure nothing change since
               this road segment was mapped.
             </p>
           </details>
