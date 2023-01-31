@@ -171,7 +171,7 @@ export const Tool: React.FC<Props> = ({ rawTags }) => {
         <div className="mt-5 grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-semibold text-fuchsia-600">
-              FYI: Tags that where ignored:
+              FYI: Tags that were ignored:
             </h3>
             {!ignoredTags.length && <p className="text-gray-500">(None)</p>}
             <ul className="text-sm">
