@@ -86,7 +86,7 @@ export const tagsTemplates: TagsNewTagsObjects = {
   'parking:lane:{SIDE}:{TYPE}=painted_area_only': {
     compare: 'tag',
     newTags: [
-      'fixme=Please provide the position of th eparked cars with parking:{SIDE}=lane|street_side|etc.',
+      'fixme=Please provide the position of the parked cars with parking:{SIDE}=lane|street_side|etc.',
     ],
     missingField: {
       key: 'parking:{SIDE}',
