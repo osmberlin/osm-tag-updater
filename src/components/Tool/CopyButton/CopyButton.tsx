@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { buttonStyle, buttonStyleSecondary } from '@components/Link'
 import React from 'react'
 import { useCopyToClipboard } from '../useCopyToClipboard'
 
@@ -19,14 +19,8 @@ export const CopyButton: React.FC<Props> = ({
     <div className="flex gap-3">
       <button
         onClick={() => copy(text)}
-        className={clsx(
-          {
-            buttonStyleSecondary: secondary,
-          },
-          {
-            buttonStyle: !secondary,
-          }
-        )}
+        className={secondary ? buttonStyleSecondary : buttonStyle}
+        disabled={!text}
       >
         {children}
       </button>
