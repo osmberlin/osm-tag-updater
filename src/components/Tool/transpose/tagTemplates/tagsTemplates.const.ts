@@ -90,7 +90,7 @@ export const tagsTemplates: TagsNewTagsObjects = {
     ],
     missingField: {
       key: 'parking:{SIDE}',
-      values: ['on_street', 'half_on_kerb', 'on_kerb', 'street_side', 'lay_by'],
+      values: ['lane', 'street_side', 'on_kerb', 'half_on_kerb'],
       msg: 'Please provide the position of parked cars. This information was not recorded previously, which is one of the benefits of the new schema.',
     },
   },
